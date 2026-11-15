@@ -172,6 +172,162 @@ const art = {
     height: 440,
     status: "canon",
   },
+  shotClock: {
+    src: `${A}shot-clock-1217.webp`,
+    alt: 'Close on the gallery clock: both hands stand at 12:17.',
+    width: 368,
+    height: 370,
+    status: "canon",
+  },
+  shotTear: {
+    src: `${A}shot-empress-tear-moonlit.webp`,
+    alt: "Close on the marble empress's face in moonlight. A dark tear runs from her eye down her cheek.",
+    width: 500,
+    height: 450,
+    status: "canon",
+  },
+  shotKitClose: {
+    src: `${A}shot-kit-close-rooftop.webp`,
+    alt: 'Closer on Kit, poised on the chimney with her pack on, scanning the lit-up city.',
+    width: 600,
+    height: 360,
+    status: "canon",
+  },
+  shotKitLeap: {
+    src: `${A}shot-kit-leap-attic.webp`,
+    alt: 'Kit mid-leap through the round window, paws out, mouth wide open in a shout.',
+    width: 680,
+    height: 500,
+    status: "canon",
+  },
+  shotGhostReaction: {
+    src: `${A}shot-cats-ghost-reaction.webp`,
+    alt: 'Close on the two cats at the archway: Kit wide-eyed with every hair on end, Ramona flatly unimpressed, holding a thread of lint.',
+    width: 860,
+    height: 520,
+    status: "canon",
+  },
+  shotLucienGrin: {
+    src: `${A}shot-lucien-grin.webp`,
+    alt: 'Close on Lucien: a lazy, too-wide grin full of teeth, eyes half-shut with amusement.',
+    width: 520,
+    height: 380,
+    status: "canon",
+  },
+  shotGlovedHand: {
+    src: `${A}shot-gloved-hand.webp`,
+    alt: 'Insert: a human hand in a fine leather glove holds a phone at the edge of the loading dock. No face.',
+    width: 441,
+    height: 520,
+    status: "canon",
+  },
+  shotDome: {
+    src: `${A}shot-reading-room-dome.webp`,
+    alt: 'The great dome of the Reading Room at night, moonlight through the glass, and Ramona small beneath it.',
+    width: 1080,
+    height: 400,
+    status: "canon",
+  },
+  shotNibPeeks: {
+    src: `${A}shot-nib-peeks.webp`,
+    alt: 'Close: the elderly mouse in round spectacles, a quill behind his ear, peers out of his tiny candlelit doorway.',
+    width: 490,
+    height: 419,
+    status: "canon",
+  },
+  shotCameoDiagram: {
+    src: `${A}shot-cameo-diagram.webp`,
+    alt: "Insert: the professor's chalk diagram of a cameo pulled apart into layers, the empress's profile raised on top.",
+    width: 460,
+    height: 380,
+    status: "canon",
+  },
+  shotFacepalm: {
+    src: `${A}shot-ramona-facepalm.webp`,
+    alt: 'Close: Ramona with her face buried in her paw.',
+    width: 480,
+    height: 400,
+    status: "canon",
+  },
+  shotRamonaEyes: {
+    src: `${A}shot-ramona-eyes.webp`,
+    alt: "Close on Ramona's face: gold eyes narrowed, thinking.",
+    width: 440,
+    height: 370,
+    status: "canon",
+  },
+  planGuards: {
+    src: "",
+    alt: "Planned shot. Guards' boots and torch beams thunder down a dark gallery toward the weeping empress. No faces.",
+    width: 3,
+    height: 2,
+    status: "placeholder",
+    brief: "PLANNED SHOT (new art, prompt 19). Low angle at floor level: a stampede of guards' boots and swinging torch beams racing down a dark museum gallery. Humans stay in the background: legs, boots, beams, no faces.",
+  },
+  planRooftopLeap: {
+    src: "",
+    alt: 'Planned shot. Kit leaps from one rooftop to the next against the full moon.',
+    width: 3,
+    height: 2,
+    status: "placeholder",
+    brief: 'PLANNED SHOT (new art, prompt 20). Kit in silhouette mid-leap between two rooftops, the full moon huge behind her, chimney smoke curling.',
+  },
+  planBookbinder: {
+    src: "",
+    alt: "Planned shot. A narrow bookbinder's shop at night, with a round attic window glowing under the roof.",
+    width: 3,
+    height: 2,
+    status: "placeholder",
+    brief: "PLANNED SHOT (new art, prompt 21). Establishing: a crooked Bloomsbury street at night, a narrow bookbinder's shop with a hanging sign, one round attic window glowing gold under the roof, a small striped cat shape bounding along the gutter toward it.",
+  },
+  planRamonaRises: {
+    src: "",
+    alt: 'Planned shot. Ramona rises from the armchair, stretching, silhouetted against the skylight.',
+    width: 3,
+    height: 2,
+    status: "placeholder",
+    brief: 'PLANNED SHOT (new art, prompt 22). Ramona standing up out of the armchair in one smooth stretch, silhouetted against the moonlit skylight, tail curling. Kit bouncing in the foreground, already doing up her vest.',
+  },
+  planCoalHatch: {
+    src: "",
+    alt: 'Planned shot. Kit squeezes head-first through an old iron coal hatch in the pavement while Ramona waits.',
+    width: 3,
+    height: 2,
+    status: "placeholder",
+    brief: 'PLANNED SHOT (new art, prompt 23). An old round iron coal hatch set in the wet pavement beside the museum railings. Kit is halfway through head-first, back legs and striped tail kicking in the air. Ramona waits beside it with dry patience.',
+  },
+  planHiding: {
+    src: "",
+    alt: "Planned shot. The two cats crouch behind a statue plinth, watching Barnaby's torch beam wobble past.",
+    width: 3,
+    height: 2,
+    status: "placeholder",
+    brief: 'PLANNED SHOT (new art, prompt 24). Low angle from behind a statue plinth in the Roman gallery: Kit and Ramona pressed into the shadow, watching a shaky torch beam sweep the floor just past them.',
+  },
+  planTiptoe: {
+    src: "",
+    alt: 'Planned shot. The cats tiptoe down a long service corridor, their shadows stretched huge on the wall.',
+    width: 3,
+    height: 2,
+    status: "placeholder",
+    brief: 'PLANNED SHOT (new art, prompt 25). A long museum service corridor under caged bulbs: Kit and Ramona tiptoeing in single file, their shadows stretched huge and comic on the wall.',
+  },
+  planSqueeze: {
+    src: "",
+    alt: "Planned shot. Kit is stuck halfway through the professor's tiny door, only her back half and tail showing.",
+    width: 3,
+    height: 2,
+    status: "placeholder",
+    brief: "PLANNED SHOT (new art, prompt 26). Comic beat: Kit wedged halfway through the professor's tiny skirting-board door, only her striped back half, backpack and tail sticking out. Ramona pushing with one boot, unimpressed.",
+  },
+  planReturn: {
+    src: "",
+    alt: 'Planned shot. The cats slip back across the quiet Roman gallery toward the bust; guards stand far off at their posts.',
+    width: 3,
+    height: 2,
+    status: "placeholder",
+    brief: 'PLANNED SHOT (new art, prompt 27). The Roman gallery, quiet again: Kit and Ramona padding across the moonlit floor toward the towering empress bust, two guards tiny and far off at their posts. Ramona starting to climb the plinth.',
+  },
   curlsDetail: {
     src: `${A}bust-curls-detail.webp`,
     alt: "Magnified: the bust's hair. Big, smooth, wavy locks under the laurel wreath.",
@@ -280,14 +436,29 @@ export const weepingStatue: Episode = {
       scriptStatus: "proposed",
       panels: [
         {
-          id: "vanishing-weep",
-          art: art.coldBust,
+          id: "vanishing-clock",
+          art: art.shotClock,
           rituals: ["vanishing"],
           camera: "push-in",
           transition: "fade",
           beats: [
             { kind: "caption", style: "location", text: "The British Museum. The night before." },
+          ],
+        },
+        {
+          id: "vanishing-weep",
+          art: art.coldBust,
+          transition: "fade",
+          camera: "pull-out",
+          beats: [
             { kind: "caption", text: "Every night at exactly 12:17, the empress weeps." },
+          ],
+        },
+        {
+          id: "vanishing-tear",
+          art: art.shotTear,
+          transition: "cut",
+          beats: [
             { kind: "sfx", text: "drip." },
           ],
         },
@@ -297,6 +468,13 @@ export const weepingStatue: Episode = {
           rituals: ["vanishing", "red-herring"],
           transition: "fade",
           beats: [{ kind: "caption", text: "And on the same nights, something pale goes drifting through the Egyptian rooms." }],
+        },
+        {
+          id: "vanishing-guards",
+          art: art.planGuards,
+          transition: "cut",
+          artNeeded: "New art: prompt 19.",
+          beats: [{ kind: "sfx", text: "THUD-THUD-THUD-THUD" }],
         },
         {
           id: "vanishing-case",
@@ -348,6 +526,13 @@ export const weepingStatue: Episode = {
           beats: [
             { kind: "intro", character: "kit" },
             { kind: "dialogue", speaker: "kit", text: "Chimney pots. Chimney pots. Fish shop... closed. Tragic." },
+          ],
+        },
+        {
+          id: "rooftops-kit-close",
+          art: art.shotKitClose,
+          transition: "cut",
+          beats: [
             { kind: "dialogue", speaker: "kit", text: "Come on, London. Give a scout something to scout." },
           ],
         },
@@ -384,6 +569,14 @@ export const weepingStatue: Episode = {
             },
             { kind: "dialogue", speaker: "kit", text: "A crying statue? Mortimer, that's the best thing I've ever heard." },
             { kind: "dialogue", speaker: "kit", text: "Ramona is going to hate this.", delivery: "thought" },
+          ],
+        },
+        {
+          id: "rooftops-leap",
+          art: art.planRooftopLeap,
+          transition: "fade",
+          artNeeded: "New art: prompt 20.",
+          beats: [
             { kind: "dialogue", speaker: "kit", text: "...Ramona is going to love this.", delivery: "thought" },
           ],
         },
@@ -399,16 +592,40 @@ export const weepingStatue: Episode = {
       scriptStatus: "approved",
       panels: [
         {
-          id: "attic-wake",
-          art: art.attic,
+          id: "attic-exterior",
+          art: art.planBookbinder,
+          artNeeded: "New art: prompt 21.",
           rituals: ["pull", "running-bicker"],
           transition: "iris",
           beats: [
             { kind: "caption", text: "Above a bookbinder's shop, three streets from the museum." },
+          ],
+        },
+        {
+          id: "attic-wake",
+          art: art.attic,
+          transition: "fade",
+          beats: [
             { kind: "caption", text: "Ramona Lisa, master thief, is doing what she does best." },
             { kind: "sfx", text: "zzz..." },
             { kind: "intro", character: "ramona" },
+          ],
+        },
+        {
+          id: "attic-kit-leap",
+          art: art.shotKitLeap,
+          transition: "cut",
+          beats: [
             { kind: "dialogue", speaker: "kit", text: "Ramona! Ramona. Ramona Lisa.", delivery: "shout" },
+          ],
+        },
+        {
+          id: "attic-chair",
+          art: art.attic,
+          focus: "20% 55%",
+          camera: "push-in",
+          transition: "cut",
+          beats: [
             {
               kind: "dialogue",
               speaker: "ramona",
@@ -448,6 +665,14 @@ export const weepingStatue: Episode = {
             },
             { kind: "dialogue", speaker: "kit", text: "So it's priceless." },
             { kind: "dialogue", speaker: "ramona", text: "It's irreplaceable. That's worse." },
+          ],
+        },
+        {
+          id: "attic-rise",
+          art: art.planRamonaRises,
+          transition: "cut",
+          artNeeded: "New art: prompt 22.",
+          beats: [
             { kind: "dialogue", speaker: "ramona", text: "Get your vest." },
           ],
         },
@@ -471,6 +696,14 @@ export const weepingStatue: Episode = {
             { kind: "caption", style: "location", text: "The British Museum." },
             { kind: "dialogue", speaker: "kit", text: "Guard on the gate. Cameras on the columns. Front door's out.", delivery: "whisper" },
             { kind: "dialogue", speaker: "ramona", text: "We are not using the front door. We are cats." },
+          ],
+        },
+        {
+          id: "museum-coal-hatch",
+          art: art.planCoalHatch,
+          transition: "fade",
+          artNeeded: "New art: prompt 23.",
+          beats: [
             { kind: "caption", text: "Kit scouts them a way in: the old coal hatch." },
           ],
         },
@@ -489,6 +722,14 @@ export const weepingStatue: Episode = {
               speaker: "barnaby",
               text: "N-nobody here. Nobody at all. Just me and the empress and the... is someone there?",
             },
+          ],
+        },
+        {
+          id: "museum-hiding",
+          art: art.planHiding,
+          transition: "cut",
+          artNeeded: "New art: prompt 24.",
+          beats: [
             { kind: "dialogue", speaker: "kit", text: "He's shaking worse than I am.", delivery: "whisper" },
             { kind: "dialogue", speaker: "ramona", text: "He isn't frightened of us. He's frightened of her.", delivery: "whisper" },
           ],
@@ -535,14 +776,30 @@ export const weepingStatue: Episode = {
       scriptStatus: "proposed",
       panels: [
         {
-          id: "corridor-ghosts",
-          art: art.ghosts,
+          id: "corridor-guards",
+          art: art.planGuards,
+          artNeeded: "Reuses the planned guards shot (prompt 19).",
           rituals: ["red-herring"],
           transition: "slide",
           beats: [
             { kind: "caption", text: "Guards flood the Roman gallery. The cats slip out the other way, through the Egyptian rooms." },
             { kind: "suspect", suspect: "s-barnaby" },
+          ],
+        },
+        {
+          id: "corridor-ghosts",
+          art: art.ghosts,
+          transition: "fade",
+          rituals: ["red-herring"],
+          beats: [
             { kind: "sfx", text: "fwsssh..." },
+          ],
+        },
+        {
+          id: "corridor-ghost-reaction",
+          art: art.shotGhostReaction,
+          transition: "cut",
+          beats: [
             { kind: "dialogue", speaker: "kit", text: "Ramona. Ramona. Ghosts. Mortimer was right!", delivery: "whisper" },
             { kind: "dialogue", speaker: "ramona", text: "Ghosts that leave lint." },
             { kind: "dialogue", speaker: "kit", text: "Ghosts can have lint!" },
@@ -550,15 +807,31 @@ export const weepingStatue: Episode = {
           ],
         },
         {
-          id: "corridor-lucien",
-          art: art.lucien,
+          id: "corridor-tiptoe",
+          art: art.planTiptoe,
+          artNeeded: "New art: prompt 25.",
           rituals: ["henchman"],
           transition: "cut",
           beats: [
             { kind: "sfx", text: "tap. tap. tap." },
+          ],
+        },
+        {
+          id: "corridor-lucien",
+          art: art.lucien,
+          transition: "cut",
+          rituals: ["henchman"],
+          beats: [
             { kind: "intro", character: "lucien" },
             { kind: "dialogue", speaker: "lucien", text: "Well, well. Two little housecats, out past their bedtime." },
             { kind: "dialogue", speaker: "kit", text: "Who are you calling little?" },
+          ],
+        },
+        {
+          id: "corridor-lucien-grin",
+          art: art.shotLucienGrin,
+          transition: "cut",
+          beats: [
             {
               kind: "dialogue",
               speaker: "lucien",
@@ -575,6 +848,13 @@ export const weepingStatue: Episode = {
           transition: "fade",
           beats: [
             { kind: "caption", text: "Beyond the door: the loading dock. A wooden crate. A gloved hand holding a phone." },
+          ],
+        },
+        {
+          id: "corridor-phone",
+          art: art.shotGlovedHand,
+          transition: "cut",
+          beats: [
             {
               kind: "dialogue",
               speaker: "collector",
@@ -582,6 +862,13 @@ export const weepingStatue: Episode = {
               text: "Tuesday, then. And Lucien? No more delays.",
             },
             { kind: "suspect", suspect: "s-collector" },
+          ],
+        },
+        {
+          id: "corridor-crate-2",
+          art: art.crateGlimpse,
+          transition: "cut",
+          beats: [
             { kind: "prompt", interaction: "inspect-crate", text: "Look at the crate. (Optional)" },
             { kind: "dialogue", speaker: "lucien", text: "Still here? Shoo." },
             { kind: "dialogue", speaker: "ramona", text: "We know when we're not wanted.", delivery: "speech" },
@@ -604,17 +891,38 @@ export const weepingStatue: Episode = {
       scriptStatus: "proposed",
       panels: [
         {
-          id: "library-door",
-          art: art.libraryDoor,
+          id: "library-dome",
+          art: art.shotDome,
           rituals: ["research"],
           transition: "iris",
           beats: [
             { kind: "caption", style: "location", text: "The Round Reading Room." },
+          ],
+        },
+        {
+          id: "library-door",
+          art: art.libraryDoor,
+          transition: "fade",
+          beats: [
             { kind: "caption", text: "Kit knows a door that isn't on any plan." },
             { kind: "dialogue", speaker: "kit", text: "Professor! We need a history lesson. An urgent one." },
+          ],
+        },
+        {
+          id: "library-nib",
+          art: art.shotNibPeeks,
+          transition: "cut",
+          beats: [
             { kind: "intro", character: "professor" },
             { kind: "dialogue", speaker: "professor", text: "At this hour? It had better be a good one." },
           ],
+        },
+        {
+          id: "library-squeeze",
+          art: art.planSqueeze,
+          transition: "cut",
+          artNeeded: "New art: prompt 26.",
+          beats: [{ kind: "sfx", text: "mmmf... SQUEAK." }],
         },
         {
           id: "library-lesson",
@@ -623,6 +931,13 @@ export const weepingStatue: Episode = {
           transition: "fade",
           beats: [
             { kind: "dialogue", speaker: "ramona", text: "A sardonyx cameo. The weeping empress's own portrait." },
+          ],
+        },
+        {
+          id: "library-diagram",
+          art: art.shotCameoDiagram,
+          transition: "cut",
+          beats: [
             {
               kind: "dialogue",
               speaker: "professor",
@@ -633,6 +948,13 @@ export const weepingStatue: Episode = {
               speaker: "professor",
               text: "The emperors put their family's faces on everything. Coins, cameos, statues. Every province had to know who was in charge.",
             },
+          ],
+        },
+        {
+          id: "library-lesson-2",
+          art: art.libraryLesson,
+          transition: "cut",
+          beats: [
             {
               kind: "dialogue",
               speaker: "professor",
@@ -646,7 +968,6 @@ export const weepingStatue: Episode = {
           id: "library-ink",
           art: art.libraryInk,
           rituals: ["accidental-clue", "running-bicker"],
-          plant: "The professor's grumble about lazy modern copies. Bury it in the comedy.",
           transition: "cut",
           beats: [
             { kind: "caption", text: "Kit's attention has wandered, as it does, toward the professor's desk." },
@@ -660,6 +981,14 @@ export const weepingStatue: Episode = {
             { kind: "dialogue", speaker: "kit", text: "...Ramona. It smells exactly like the tear." },
             { kind: "clue", clue: "walnut-ink" },
             { kind: "dialogue", speaker: "kit", text: "I TOLD you my stomach was a legitimate investigative tool." },
+          ],
+        },
+        {
+          id: "library-facepalm",
+          art: art.shotFacepalm,
+          plant: "The professor's grumble about lazy modern copies. Bury it in the comedy.",
+          transition: "cut",
+          beats: [
             { kind: "dialogue", speaker: "ramona", text: "Once. It was right once." },
             {
               kind: "dialogue",
@@ -680,12 +1009,21 @@ export const weepingStatue: Episode = {
       scriptStatus: "proposed",
       panels: [
         {
-          id: "hollow-tap",
-          art: art.tapEar,
+          id: "hollow-return",
+          art: art.planReturn,
+          artNeeded: "New art: prompt 27.",
           camera: "push-in",
           transition: "fade",
           beats: [
             { kind: "caption", text: "The guards have gone back to their posts. The empress has stopped crying." },
+          ],
+        },
+        {
+          id: "hollow-tap",
+          art: art.tapEar,
+          camera: "push-in",
+          transition: "cut",
+          beats: [
             { kind: "sfx", text: "tok. tok." },
             { kind: "dialogue", speaker: "kit", text: "Marble goes 'tink'. Doesn't it?" },
             { kind: "dialogue", speaker: "ramona", text: "Solid marble does." },
@@ -712,12 +1050,20 @@ export const weepingStatue: Episode = {
             { kind: "caption", text: "Beside the bust: the cameo's case. Empty velvet, and the museum label." },
             { kind: "dialogue", speaker: "kit", text: "There she is. Same empress, on the label photo." },
             { kind: "prompt", interaction: "inspect-curls", text: "Compare the curls on the label photo with the bust. (Optional)" },
-            { kind: "dialogue", speaker: "ramona", text: "Interesting." },
-            { kind: "dialogue", speaker: "kit", text: "You always say that when you know something." },
-            { kind: "dialogue", speaker: "ramona", text: "I always know something." },
           ],
           interactions: [
             { id: "inspect-curls", kind: "inspect", label: "Compare the curls", region: { x: 67, y: 67, w: 17, h: 18 }, clue: "curls" },
+          ],
+        },
+        {
+          id: "hollow-ramona",
+          art: art.shotRamonaEyes,
+          camera: "push-in",
+          transition: "cut",
+          beats: [
+            { kind: "dialogue", speaker: "ramona", text: "Interesting." },
+            { kind: "dialogue", speaker: "kit", text: "You always say that when you know something." },
+            { kind: "dialogue", speaker: "ramona", text: "I always know something." },
           ],
         },
       ],
