@@ -1,4 +1,4 @@
-import type { Character, MysteryWorksheet, Suspect } from "@/lib/types";
+import type { MysteryWorksheet, SuspectTruth } from "@/lib/types";
 
 /**
  * SPOILERS. Production data for Episode 1 from Colin's Mystery Engine v2
@@ -6,60 +6,13 @@ import type { Character, MysteryWorksheet, Suspect } from "@/lib/types";
  * so the solution never ships to the browser until the reveal is built.
  */
 
-/** Characters who appear from Beat 3 on. Portraits still to be drawn. */
-export const laterCast: Character[] = [
-  {
-    id: "lucien",
-    name: "Lucien Vale",
-    role: "Silver fox",
-    species: "Fox",
-    tagline: "Charming, sneering, and always standing exactly where you need to go.",
-    accent: "gold",
-    status: "canon",
-    kind: "henchman",
-  },
-  {
-    id: "dust-sheet-mice",
-    name: "The Egyptian gallery mice",
-    role: "Museum mice",
-    species: "Mice",
-    tagline: "",
-    accent: "gold",
-    status: "canon",
-    kind: "suspect",
-  },
-  {
-    id: "library-mouse",
-    name: "The library mouse",
-    role: "Elderly scholar behind the reading-room skirting boards",
-    species: "Mouse",
-    tagline: "",
-    accent: "blue",
-    status: "canon", // name not yet given in canon
-    kind: "ally",
-  },
-  {
-    id: "collector",
-    name: "The collector",
-    role: "Private collector, only ever glimpsed",
-    species: "Human",
-    tagline: "",
-    accent: "blue",
-    status: "canon",
-    kind: "human-background",
-  },
-];
-
 /**
- * Suspect cards for Beat 3: animals up front, a human glimpsed.
- * `card` is what the reader sees; the other fields are the truth.
- * Card wording is a proposed draft.
+ * The truth behind each Beat 3 suspect card (cards themselves are in episode.ts).
  */
-export const suspects: Suspect[] = [
+export const suspectTruths: SuspectTruth[] = [
   {
     id: "s-barnaby",
     character: "barnaby",
-    card: "The night guard. Jumpy, shifty, and never where he should be at 12:17.",
     motive: "None. Suspicious but innocent.",
     means: "Keys to every gallery.",
     opportunity: "Alone on the Roman gallery beat every night.",
@@ -67,9 +20,8 @@ export const suspects: Suspect[] = [
     status: "canon",
   },
   {
-    id: "s-mice",
-    character: "dust-sheet-mice",
-    card: "Pale shapes drifting through the Egyptian gallery on the same nights. Ghosts?",
+    id: "s-ghosts",
+    character: "ghosts",
     motive: "None. Red herring.",
     means: "Dust sheets.",
     opportunity: "Same nights as the weeping.",
@@ -79,7 +31,6 @@ export const suspects: Suspect[] = [
   {
     id: "s-lucien",
     character: "lucien",
-    card: "A silver fox about the museum after hours. Very polite. Very much in the way.",
     motive: "Works for the collector.",
     means: "Carries the cameo out through the service corridor.",
     opportunity: "The weeping empties the corridor from 12:17.",
@@ -89,7 +40,6 @@ export const suspects: Suspect[] = [
   {
     id: "s-collector",
     character: "collector",
-    card: "Someone who wants the cameo badly. A gloved hand. A phone call. A crate stencilled \"T\".",
     motive: "Wants the cameo for a private collection.",
     means: "Paid for the hollow replica bust with its ink reservoir and clockwork valve.",
     opportunity: "Lucien does the work.",

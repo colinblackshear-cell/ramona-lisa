@@ -96,3 +96,57 @@
   object-fit: cover;
   border: 2px solid var(--midnight);
 }
+
+.clueMark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--midnight);
+  color: var(--gold-bright);
+  font-size: 1.4rem;
+}
+
+.reread {
+  display: inline-block;
+  margin: 2px 0 4px;
+  padding: 1px 6px;
+  background: var(--gold);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.treasure {
+  width: 100%;
+  text-align: left;
+  background: var(--midnight);
+  color: var(--cream);
+  border: 2px solid var(--gold);
+  padding: 12px;
+  cursor: pointer;
+  line-height: 1.45;
+  font-size: 0.88rem;
+}
+
+.treasure strong {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: var(--gold-bright);
+}
+
+.personBlank {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--midnight);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  background: var(--cream-dim);
+}

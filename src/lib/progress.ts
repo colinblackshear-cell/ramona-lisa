@@ -8,6 +8,8 @@ export interface EpisodeProgress {
   step: number;
   foundClues: string[];
   metCharacters: string[];
+  seenSuspects: string[];
+  explored: string[];
   finished: boolean;
   updatedAt: number;
 }
@@ -16,6 +18,8 @@ export const emptyProgress: EpisodeProgress = {
   step: 0,
   foundClues: [],
   metCharacters: [],
+  seenSuspects: [],
+  explored: [],
   finished: false,
   updatedAt: 0,
 };

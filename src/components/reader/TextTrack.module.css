@@ -258,3 +258,111 @@
   .introPortrait { width: 72px; height: 72px; }
   .introName { font-size: 1.6rem; }
 }
+
+/* ---------- Suspect cards ---------- */
+.suspect {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 12px;
+  align-items: start;
+  background: var(--cream);
+  color: var(--midnight);
+  border: var(--rule);
+  outline: 2px dashed var(--midnight);
+  outline-offset: -7px;
+  padding: 14px;
+  max-width: 30em;
+  box-shadow: 4px 4px 0 var(--gold);
+  transform: rotate(-0.6deg);
+  animation: dealIn 520ms var(--ease-out);
+}
+
+@keyframes dealIn {
+  from { opacity: 0; transform: translate(30px, -10px) rotate(6deg); }
+}
+
+.suspectPortrait {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border: 2px solid var(--midnight);
+}
+
+.suspectBlank {
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  background: repeating-linear-gradient(45deg, var(--cream-dim) 0 5px, var(--cream) 5px 10px);
+}
+
+.suspectKicker {
+  margin: 0;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #6f5524;
+}
+
+.suspectName {
+  margin: 2px 0 4px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.05;
+}
+
+.suspectText {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.leads {
+  margin: 8px 0 0;
+  padding-left: 1.1em;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.leads li::marker {
+  content: "✦ ";
+  color: var(--gold);
+}
+
+/* ---------- Clue stamp ---------- */
+.clueStamp {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  text-align: left;
+  padding: 10px 14px;
+  background: var(--midnight);
+  color: var(--cream);
+  border: 2px solid var(--gold);
+  box-shadow: 3px 3px 0 var(--gold);
+  cursor: zoom-in;
+  max-width: 30em;
+  transform: rotate(-1deg);
+}
+
+.clueStamp strong {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: var(--gold-bright);
+}
+
+.clueStampKicker {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+}
+
+.clueStampMore {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gold);
+}

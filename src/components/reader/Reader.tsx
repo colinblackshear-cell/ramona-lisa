@@ -9,6 +9,7 @@ import { PanelStage } from "./PanelStage";
 import { TextTrack } from "./TextTrack";
 import { EvidenceInspector } from "./EvidenceInspector";
 import { CaseNotebook } from "./CaseNotebook";
+import { ArtifactExplorer } from "./ArtifactExplorer";
 import styles from "./Reader.module.css";
 
 interface ReaderProps {
@@ -24,6 +25,13 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
   const [step, setStep] = useState(() => Math.min(Math.max(initial.step, 0), steps.length - 1));
   const [foundClues, setFoundClues] = useState<string[]>(initial.foundClues);
   const [metCharacters, setMet] = useState<string[]>(initial.metCharacters);
+  const [seenSuspects, setSeenSuspects] = useState<string[]>(initial.seenSuspects ?? []);
+  const [exploring, setExploringRaw] = useState<string | null>(null);
+  const [explored, setExplored] = useState<string[]>(initial.explored ?? []);
+  const setExploring = (id: string | null) => {
+    setExploringRaw(id);
+    if (id && !explored.includes(id)) setExplored((e) => [...e, id]);
+  };
   const [inspecting, setInspecting] = useState<string | null>(null);
   const [notebookOpen, setNotebookOpen] = useState(false);
   const [showNotes, setShowNotes] = useState(true);
@@ -32,7 +40,7 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
 
   const current = steps[step];
   const { scene, panel, visibleBeats } = resolveStep(episode, current);
-  const modalOpen = inspecting !== null || notebookOpen;
+  const modalOpen = inspecting !== null || notebookOpen || exploring !== null;
 
   // Production notes preference
   useEffect(() => {
@@ -56,16 +64,35 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
     if (fresh.length) setMet((m) => [...m, ...fresh]);
   }, [visibleBeats, metCharacters]);
 
+  // Suspect cards are filed in the notebook when they are dealt.
+  useEffect(() => {
+    const dealt = visibleBeats.flatMap((b) => (b.kind === "suspect" ? [b.suspect] : []));
+    const fresh = dealt.filter((id) => !seenSuspects.includes(id));
+    if (fresh.length) setSeenSuspects((s) => [...s, ...fresh]);
+  }, [visibleBeats, seenSuspects]);
+
+  // Clues heard or seen in the story file themselves.
+  useEffect(() => {
+    const noted = visibleBeats.flatMap((b) => (b.kind === "clue" ? [b.clue] : []));
+    const fresh = noted.filter((id) => !foundClues.includes(id));
+    if (fresh.length) {
+      setFoundClues((f) => [...f, ...fresh]);
+      setJustFound(true);
+    }
+  }, [visibleBeats, foundClues]);
+
   // Save after every change
   useEffect(() => {
     saveProgress(episode.id, {
       step,
       foundClues,
       metCharacters,
+      seenSuspects,
+      explored,
       finished: current.type === "end",
       updatedAt: Date.now(),
     });
-  }, [episode.id, step, foundClues, metCharacters, current.type]);
+  }, [episode.id, step, foundClues, metCharacters, seenSuspects, explored, current.type]);
 
   const next = useCallback(() => setStep((s) => Math.min(s + 1, steps.length - 1)), [steps.length]);
   const back = useCallback(() => setStep((s) => Math.max(s - 1, 0)), []);
@@ -97,10 +124,13 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
       setJustFound(true);
     }
   };
-  const inspectInteraction = (it: Interaction) => inspect(it.clue);
-  const inspectById = (interactionId: string) => {
+  const interact = (it: Interaction) => {
+    if (it.kind === "inspect") inspect(it.clue);
+    else setExploring(it.artifact);
+  };
+  const interactById = (interactionId: string) => {
     const it = panel?.interactions?.find((i) => i.id === interactionId);
-    if (it) inspect(it.clue);
+    if (it) interact(it);
   };
 
   // Tap anywhere on the stage (not on a control) to advance; swipe to turn.
@@ -190,9 +220,17 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
 
         {current.type === "beat" && panel && (
           <div className={styles.spread} data-tall={tall ? "" : undefined}>
-            <PanelStage key={panel.id} panel={panel} showNotes={showNotes} foundClues={foundClues} onInspect={inspectInteraction} />
+            <PanelStage key={panel.id} panel={panel} showNotes={showNotes} foundClues={foundClues} onInspect={interact} />
             <div className={styles.words}>
-              <TextTrack key={panel.id} beats={visibleBeats} characters={episode.characters} onPrompt={inspectById} />
+              <TextTrack
+                key={panel.id}
+                beats={visibleBeats}
+                characters={episode.characters}
+                suspects={episode.suspects}
+                clues={episode.clues}
+                onPrompt={interactById}
+                onOpenClue={(id) => setInspecting(id)}
+              />
             </div>
           </div>
         )}
@@ -211,7 +249,7 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
                 onClick={() => {
                   const missing = episode.scenes
                     .flatMap((s) => s.panels)
-                    .find((p) => p.interactions?.some((i) => !foundClues.includes(i.clue)));
+                    .find((p) => p.interactions?.some((i) => i.kind === "inspect" && !foundClues.includes(i.clue)));
                   if (missing) setStep(stepForPanel(steps, missing.id, episode) + missing.beats.length - 1);
                 }}
               >
@@ -243,17 +281,27 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
         </button>
       </footer>
 
-      <EvidenceInspector clue={clue} characters={episode.characters} showNotes={showNotes} onClose={() => setInspecting(null)} />
+      <EvidenceInspector clue={clue} foundClues={foundClues} characters={episode.characters} showNotes={showNotes} onClose={() => setInspecting(null)} />
       <CaseNotebook
         open={notebookOpen}
         onClose={() => setNotebookOpen(false)}
         episode={episode}
         foundClues={foundClues}
         metCharacters={metCharacters}
+        seenSuspects={seenSuspects}
+        explored={explored}
         onInspect={(id) => {
           setNotebookOpen(false);
           setInspecting(id);
         }}
+        onExplore={(id) => {
+          setNotebookOpen(false);
+          setExploring(id);
+        }}
+      />
+      <ArtifactExplorer
+        artifact={episode.artifacts?.find((a) => a.id === exploring) ?? null}
+        onClose={() => setExploring(null)}
       />
     </div>
   );

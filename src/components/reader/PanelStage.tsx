@@ -33,7 +33,7 @@ export function PanelStage({ panel, showNotes, foundClues, onInspect }: PanelSta
     >
       <div className={`${styles.camera} ${styles[`cam-${panel.camera ?? "still"}`]}`}>
         {isPlaceholder ? (
-          <div className={styles.placeholder} role="img" aria-label={art.alt}>
+          <div className={styles.placeholder} data-noref={art.placeholderReference ? undefined : ""} role="img" aria-label={art.alt}>
             {art.placeholderReference && (
               // eslint-disable-next-line @next/next/no-img-element
               <img className={styles.placeholderRef} src={asset(art.placeholderReference)} alt="" />
@@ -49,7 +49,8 @@ export function PanelStage({ panel, showNotes, foundClues, onInspect }: PanelSta
         )}
 
         {panel.interactions?.map((it) => {
-          const found = foundClues.includes(it.clue);
+          if (!it.region) return null;
+          const found = it.kind === "inspect" && foundClues.includes(it.clue);
           return (
             <button
               key={it.id}

@@ -66,3 +66,20 @@
     margin: 0 auto;
   }
 }
+
+.reread {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  background: var(--midnight);
+  color: var(--cream);
+  border-left: 6px solid var(--gold);
+  line-height: 1.5;
+}
+
+.reread strong {
+  color: var(--gold-bright);
+}
+
+.layout:not(:has(.lens)) {
+  grid-template-columns: 1fr;
+}

@@ -86,7 +86,19 @@ export interface PromptBeat {
   text: string;
 }
 
-export type Beat = CaptionBeat | Dialogue | SfxBeat | IntroBeat | PromptBeat;
+/** Shows a suspect card inline and files it in the case notebook. */
+export interface SuspectBeat {
+  kind: "suspect";
+  suspect: string;
+}
+
+/** Files a clue in the notebook automatically (one heard or seen in the story). */
+export interface ClueBeat {
+  kind: "clue";
+  clue: ClueId;
+}
+
+export type Beat = CaptionBeat | Dialogue | SfxBeat | IntroBeat | PromptBeat | SuspectBeat | ClueBeat;
 
 /* ---------- Interactions ---------- */
 
@@ -98,13 +110,46 @@ export interface Region {
   h: number;
 }
 
-export interface Interaction {
+/** Examine evidence. With a region it is also a hotspot on the art. */
+export interface InspectInteraction {
   id: string;
   kind: "inspect";
   /** Accessible label for the hotspot button. */
   label: string;
-  region: Region;
+  /** Omit for placeholder art: the prompt button alone opens it. */
+  region?: Region;
   clue: ClueId;
+}
+
+/** Open the artifact explorer for the episode's treasure. */
+export interface ExploreInteraction {
+  id: string;
+  kind: "explore";
+  label: string;
+  region?: Region;
+  artifact: string;
+}
+
+export type Interaction = InspectInteraction | ExploreInteraction;
+
+/* ---------- The treasure ---------- */
+
+export interface ArtifactFact {
+  id: string;
+  title: string;
+  text: string;
+  /** Rule 2: mark which parts are real history and which are invented. */
+  truth: "real" | "invented";
+  /** Optional built-in diagram. */
+  diagram?: "layered-stone";
+}
+
+export interface Artifact {
+  id: string;
+  name: string;
+  summary: string;
+  image?: ArtRef;
+  facts: ArtifactFact[];
 }
 
 export interface Clue {
@@ -118,14 +163,33 @@ export interface Clue {
   image?: ArtRef;
   /** What the characters say once it is examined. */
   reaction?: Dialogue[];
+  /**
+   * "One clue means two things": once `byClue` is found, the notebook shows
+   * this new reading instead of the first summary.
+   */
+  rereading?: { byClue: ClueId; summary: string };
+  /** Found by accident mid-bicker, mid-joke or mid-snack (a Mystery Engine ritual). */
+  accidental?: boolean;
   status: ContentStatus;
 }
 
+/** Reader-facing suspect card. Never holds the truth. */
 export interface Suspect {
   id: string;
   character: CharacterId;
-  /** What the reader is told on the suspect card. */
+  /** Headline on the card, e.g. "The jumpy guard". */
+  label: string;
+  /** What the reader is told on the card. */
   card: string;
+  /** Lines added to the card in the notebook once a clue is found. */
+  leads?: { clue: ClueId; text: string }[];
+  status: ContentStatus;
+}
+
+/** The truth behind a suspect. Lives only in solution files. */
+export interface SuspectTruth {
+  id: string;
+  character: CharacterId;
   motive: string;
   means: string;
   opportunity: string;
@@ -265,6 +329,8 @@ export interface Episode {
   suspects: Suspect[];
   deductions: Deduction[];
   reveals: Reveal[];
+  /** The episode's real treasure, for the artifact explorer. */
+  artifacts?: Artifact[];
   /** Shown on the end card of a partial build. */
   continuation?: string;
 }

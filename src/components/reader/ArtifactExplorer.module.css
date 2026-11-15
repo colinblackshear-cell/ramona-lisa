@@ -1,0 +1,101 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.summary {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tab {
+  min-height: 40px;
+  padding: 6px 12px;
+  border: 2px solid var(--midnight);
+  background: transparent;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.tab[aria-selected="true"] {
+  background: var(--midnight);
+  color: var(--gold-bright);
+}
+
+.fact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 18px;
+  align-items: start;
+  animation: factIn 300ms var(--ease-out);
+}
+
+@keyframes factIn {
+  from { opacity: 0; transform: translateY(6px); }
+}
+
+.diagram {
+  margin: 0;
+  background: #fbf5e6;
+  border: 2px solid var(--midnight);
+  box-shadow: 4px 4px 0 var(--gold);
+  padding: 8px;
+}
+
+.diagramCaption {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  text-align: right;
+}
+
+.image {
+  width: 100%;
+  border: 2px solid var(--midnight);
+  box-shadow: 4px 4px 0 var(--gold);
+}
+
+.factTitle {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.4rem;
+}
+
+.factText {
+  margin: 0 0 12px;
+  line-height: 1.55;
+}
+
+.truth {
+  display: inline-block;
+  margin: 0;
+  padding: 3px 9px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 2px solid var(--midnight);
+}
+
+.truth[data-truth="real"] {
+  background: var(--gold);
+}
+
+.truth[data-truth="invented"] {
+  background: transparent;
+  border-style: dashed;
+}
+
+@media (max-width: 640px) {
+  .fact {
+    grid-template-columns: 1fr;
+  }
+}

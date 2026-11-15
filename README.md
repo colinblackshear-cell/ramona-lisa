@@ -1,6 +1,6 @@
 # The Adventures of Ramona Lisa — Interactive Graphic Novel
 
-Phase 1 (foundation) and Phase 2 (three-scene visual prototype) of Episode 1, *The Weeping Statue*.
+Phase 1 (foundation), Phase 2 (visual prototype) and Phase 3 (investigation system: suspects, research, clues) of Episode 1, *The Weeping Statue*.
 
 ```bash
 npm install
@@ -49,6 +49,7 @@ Every piece of content carries a `status`: `canon`, `approved`, `proposed` or `p
 
 - **Canon:** characters, Mortimer's summons, the pull (Ramona asleep in her armchair, "Get your vest."), the look-in ("Is it?"), the walnut-ink tear, Barnaby, all supplied artwork.
 - **Approved (Colin, 2026-11-15):** the scene 1–3 dialogue and captions, the Bloomsbury attic, the coal-hatch route in, and the Engine v2 additions (Mortimer's ghost-sheets line, the stomach bicker, Barnaby vanishing at 12:17, the double-meaning tear).
+- **Proposed (Phase 3, awaiting approval):** scenes 4–6 (the henchman, the research, the hollow empress), suspect card wording, Professor Ambrose Nib, the crate marked 'T' and the "Tuesday" deadline, the cameo facts.
 - **Placeholder:** Ramona's attic (scene 2). Mortimer is not yet drawn into the tip panel.
 
 `content/episodes/<id>/solution.ts` holds the worksheet, suspects and solution. The reader never imports it, so spoilers don't ship to the browser until the reveal is built.
@@ -58,7 +59,9 @@ Every piece of content carries a `status`: `canon`, `approved`, `proposed` or `p
 - Panel-by-panel reading: tap, click, swipe, arrow keys, Space/Enter; Back works everywhere
 - Scene title cards, character introduction cards, captions, speech/whisper/thought/shout balloons, SFX
 - Panel transitions (fade, slide, iris, cut) and slow camera moves; all disabled under `prefers-reduced-motion`
-- One clickable clue (the empress's tear) with a magnified evidence view; also reachable from a text button, so no precise clicking is required
-- Case notebook (clues found, characters met), episode/scene navigation, local save and resume
+- Five clues: three to examine on the art (magnified evidence view, also reachable from a text button, so no precise clicking is required) and two picked up from the story; a later clue can give an earlier one a "new reading"
+- Suspect cards dealt in the story and filed in Kit's casebook, with leads that unlock as clues turn up
+- Treasure explorer for the stolen cameo: real history vs. invented-for-the-story facts, with a simple diagram
+- Kit's casebook (case, suspects, clues, treasure, characters met), episode/scene navigation, local save and resume
 - Responsive: cinematic side-by-side spread on desktop, stacked panel-then-lettering on mobile, side-by-side for portrait art on tablets
 - Accessibility: every image has a text alternative, new lettering is announced via a polite live region, speaker and delivery are spoken, native dialogs trap focus and close on Escape, 44px touch targets

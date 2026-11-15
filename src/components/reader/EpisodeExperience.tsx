@@ -70,7 +70,7 @@ export function EpisodeExperience({ episodeId }: { episodeId: string }) {
           Read panel by panel with the arrow keys, a tap or a swipe. Look for the gold lens to examine evidence; every clue
           is optional and saved to your case notebook. Your place is saved on this device.
         </p>
-        <p className={styles.proto}>Prototype · scenes 1–3 of the pilot</p>
+        <p className={styles.proto}>Prototype · scenes 1–{episode.scenes.length} of the pilot</p>
       </section>
     </main>
   );
