@@ -18,8 +18,9 @@ import { seriesRegulars } from "@/content/series/characters";
  * PROPOSED (needs approval): the cold-open captions (scene 1, The Vanishing),
  * scenes 5–7, the suspect card wording, the professor's name, the crate clue
  * wording and the "Tuesday" deadline.
- * ART: all panels use Colin's supplied art (2026-11-15 batch) except Mortimer
- * on the chimney and the label-photo close-up, which are still needed.
+ * ART: all panels use Colin's supplied art or crops of it, except Mortimer on
+ * the chimney, the label-photo close-up and the walk back across the gallery
+ * (prompts 3, 18 and 27), which are still needed.
  */
 
 const A = "episodes/weeping-statue/art/";
@@ -257,68 +258,60 @@ const art = {
     status: "canon",
   },
   planGuards: {
-    src: "",
-    alt: "Planned shot. Guards' boots and torch beams thunder down a dark gallery toward the weeping empress. No faces.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 19). Low angle at floor level: a stampede of guards' boots and swinging torch beams racing down a dark museum gallery. Humans stay in the background: legs, boots, beams, no faces.",
+    src: `${A}guards-stampede.webp`,
+    alt: "Floor-level view of guards' heavy boots pounding down a dark gallery, torch beams slicing the polished floor, toward the moonlit marble empress at the far end. No faces.",
+    width: 1740,
+    height: 847,
+    status: "canon",
   },
   planRooftopLeap: {
-    src: "",
-    alt: 'Planned shot. Kit leaps from one rooftop to the next against the full moon.',
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: 'PLANNED SHOT (new art, prompt 20). Kit in silhouette mid-leap between two rooftops, the full moon huge behind her, chimney smoke curling.',
+    src: `${A}rooftop-leap.webp`,
+    alt: "Kit, stretched out mid-leap between two rooftops, flies across a huge full moon, with Big Ben and St Paul's dome on the skyline below.",
+    width: 1739,
+    height: 850,
+    status: "canon",
   },
   planBookbinder: {
-    src: "",
-    alt: "Planned shot. A narrow bookbinder's shop at night, with a round attic window glowing under the roof.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 21). Establishing: a crooked Bloomsbury street at night, a narrow bookbinder's shop with a hanging sign, one round attic window glowing gold under the roof, a small striped cat shape bounding along the gutter toward it.",
+    src: `${A}bookbinder-shop.webp`,
+    alt: "A crooked Bloomsbury street at night: wet cobbles, a gas lamp, and a bookbinder's shop with a glowing bow window and a sign shaped like an open book. Kit bounds along the roof toward a round attic window lit gold.",
+    width: 1503,
+    height: 988,
+    status: "canon",
   },
   planRamonaRises: {
-    src: "",
-    alt: 'Planned shot. Ramona rises from the armchair, stretching, silhouetted against the skylight.',
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: 'PLANNED SHOT (new art, prompt 22). Ramona standing up out of the armchair in one smooth stretch, silhouetted against the moonlit skylight, tail curling. Kit bouncing in the foreground, already doing up her vest.',
+    src: `${A}ramona-rises.webp`,
+    alt: 'In the moonlit attic, Ramona stretches tall beside her armchair while Kit, grinning with her eyes shut, buckles her vest in the foreground.',
+    width: 1502,
+    height: 991,
+    status: "canon",
   },
   planCoalHatch: {
-    src: "",
-    alt: 'Planned shot. Kit squeezes head-first through an old iron coal hatch in the pavement while Ramona waits.',
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: 'PLANNED SHOT (new art, prompt 23). An old round iron coal hatch set in the wet pavement beside the museum railings. Kit is halfway through head-first, back legs and striped tail kicking in the air. Ramona waits beside it with dry patience.',
+    src: `${A}coal-hatch.webp`,
+    alt: 'Outside the museum railings in the rain, Kit is wedged head-first in an open iron coal hatch, back legs and tail kicking in the air, while Ramona leans against the railings with her arms folded.',
+    width: 1501,
+    height: 988,
+    status: "canon",
   },
   planHiding: {
-    src: "",
-    alt: "Planned shot. The two cats crouch behind a statue plinth, watching Barnaby's torch beam wobble past.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: 'PLANNED SHOT (new art, prompt 24). Low angle from behind a statue plinth in the Roman gallery: Kit and Ramona pressed into the shadow, watching a shaky torch beam sweep the floor just past them.',
+    src: `${A}hiding-plinth.webp`,
+    alt: "Ramona and Kit press into the shadow of a statue plinth while Barnaby's torch beam sweeps the floor just past them. The badger guard stands at the edge of the frame.",
+    width: 1503,
+    height: 988,
+    status: "canon",
   },
   planTiptoe: {
-    src: "",
-    alt: 'Planned shot. The cats tiptoe down a long service corridor, their shadows stretched huge on the wall.',
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: 'PLANNED SHOT (new art, prompt 25). A long museum service corridor under caged bulbs: Kit and Ramona tiptoeing in single file, their shadows stretched huge and comic on the wall.',
+    src: `${A}corridor-tiptoe.webp`,
+    alt: 'Kit and Ramona tiptoe down the service corridor in exaggerated sneaking poses, their shadows stretched huge on the wall. The service door glows half-open at the far end.',
+    width: 1501,
+    height: 989,
+    status: "canon",
   },
   planSqueeze: {
-    src: "",
-    alt: "Planned shot. Kit is stuck halfway through the professor's tiny door, only her back half and tail showing.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 26). Comic beat: Kit wedged halfway through the professor's tiny skirting-board door, only her striped back half, backpack and tail sticking out. Ramona pushing with one boot, unimpressed.",
+    src: `${A}mouse-door-squeeze.webp`,
+    alt: "Kit is wedged in the professor's tiny door, only her back half, backpack and flailing tail showing, while Ramona shoves her through with one boot.",
+    width: 1499,
+    height: 989,
+    status: "canon",
   },
   planReturn: {
     src: "",
@@ -473,7 +466,6 @@ export const weepingStatue: Episode = {
           id: "vanishing-guards",
           art: art.planGuards,
           transition: "cut",
-          artNeeded: "New art: prompt 19.",
           beats: [{ kind: "sfx", text: "THUD-THUD-THUD-THUD" }],
         },
         {
@@ -575,7 +567,6 @@ export const weepingStatue: Episode = {
           id: "rooftops-leap",
           art: art.planRooftopLeap,
           transition: "fade",
-          artNeeded: "New art: prompt 20.",
           beats: [
             { kind: "dialogue", speaker: "kit", text: "...Ramona is going to love this.", delivery: "thought" },
           ],
@@ -594,7 +585,6 @@ export const weepingStatue: Episode = {
         {
           id: "attic-exterior",
           art: art.planBookbinder,
-          artNeeded: "New art: prompt 21.",
           rituals: ["pull", "running-bicker"],
           transition: "iris",
           beats: [
@@ -671,7 +661,6 @@ export const weepingStatue: Episode = {
           id: "attic-rise",
           art: art.planRamonaRises,
           transition: "cut",
-          artNeeded: "New art: prompt 22.",
           beats: [
             { kind: "dialogue", speaker: "ramona", text: "Get your vest." },
           ],
@@ -702,7 +691,6 @@ export const weepingStatue: Episode = {
           id: "museum-coal-hatch",
           art: art.planCoalHatch,
           transition: "fade",
-          artNeeded: "New art: prompt 23.",
           beats: [
             { kind: "caption", text: "Kit scouts them a way in: the old coal hatch." },
           ],
@@ -728,7 +716,6 @@ export const weepingStatue: Episode = {
           id: "museum-hiding",
           art: art.planHiding,
           transition: "cut",
-          artNeeded: "New art: prompt 24.",
           beats: [
             { kind: "dialogue", speaker: "kit", text: "He's shaking worse than I am.", delivery: "whisper" },
             { kind: "dialogue", speaker: "ramona", text: "He isn't frightened of us. He's frightened of her.", delivery: "whisper" },
@@ -778,7 +765,6 @@ export const weepingStatue: Episode = {
         {
           id: "corridor-guards",
           art: art.planGuards,
-          artNeeded: "Reuses the planned guards shot (prompt 19).",
           rituals: ["red-herring"],
           transition: "slide",
           beats: [
@@ -809,7 +795,6 @@ export const weepingStatue: Episode = {
         {
           id: "corridor-tiptoe",
           art: art.planTiptoe,
-          artNeeded: "New art: prompt 25.",
           rituals: ["henchman"],
           transition: "cut",
           beats: [
@@ -921,7 +906,6 @@ export const weepingStatue: Episode = {
           id: "library-squeeze",
           art: art.planSqueeze,
           transition: "cut",
-          artNeeded: "New art: prompt 26.",
           beats: [{ kind: "sfx", text: "mmmf... SQUEAK." }],
         },
         {
