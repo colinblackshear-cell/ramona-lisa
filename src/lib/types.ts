@@ -254,8 +254,22 @@ export interface Panel {
   /** Slow camera move. Disabled when the reader prefers reduced motion. */
   camera?: "push-in" | "pull-out" | "pan-left" | "pan-right" | "still";
   transition?: Transition;
+  /**
+   * Film view: where each speaker sits in the art (percent of the image).
+   * The camera leans toward whoever is talking and balloons point their way.
+   */
+  anchors?: Record<CharacterId, { x: number; y: number }>;
+  /** Film view: per-beat camera (index matches beats). Missing entries are automatic. */
+  shots?: (CameraShot | null)[];
   beats: Beat[];
   interactions?: Interaction[];
+}
+
+/** A camera position: focus point in percent of the image, and zoom (1 = fill the screen). */
+export interface CameraShot {
+  x: number;
+  y: number;
+  zoom: number;
 }
 
 /** Episode structure step from the series bible (section 7). */

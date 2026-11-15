@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { Episode, Interaction } from "@/lib/types";
+import type { Beat, Episode, Interaction } from "@/lib/types";
 import { asset } from "@/lib/asset";
 import { saveProgress, type EpisodeProgress } from "@/lib/progress";
 import { buildSteps, firstStepOfScene, resolveStep, stepForPanel } from "./steps";
@@ -10,6 +10,8 @@ import { TextTrack } from "./TextTrack";
 import { EvidenceInspector } from "./EvidenceInspector";
 import { CaseNotebook } from "./CaseNotebook";
 import { ArtifactExplorer } from "./ArtifactExplorer";
+import { CinemaStage } from "./CinemaStage";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 import styles from "./Reader.module.css";
 
 interface ReaderProps {
@@ -19,6 +21,27 @@ interface ReaderProps {
 }
 
 const NOTES_KEY = "ramona-lisa:production-notes";
+const VIEW_KEY = "ramona-lisa:view";
+
+/** Auto-play timing: long enough to read each beat comfortably. */
+function beatDuration(beat: Beat | undefined): number {
+  if (!beat) return 2600;
+  switch (beat.kind) {
+    case "caption":
+    case "dialogue":
+      return Math.min(7500, 1500 + beat.text.length * 48);
+    case "sfx":
+      return 1400;
+    case "intro":
+      return 3200;
+    case "suspect":
+      return 4200;
+    case "clue":
+      return 3000;
+    case "prompt":
+      return 3800;
+  }
+}
 
 export function Reader({ episode, initial, onExit }: ReaderProps) {
   const steps = useMemo(() => buildSteps(episode), [episode]);
@@ -36,6 +59,9 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
   const [notebookOpen, setNotebookOpen] = useState(false);
   const [showNotes, setShowNotes] = useState(true);
   const [justFound, setJustFound] = useState(false);
+  const [view, setView] = useState<"film" | "book">("film");
+  const [playing, setPlaying] = useState(false);
+  const reducedMotion = useReducedMotion();
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
 
   const current = steps[step];
@@ -49,6 +75,20 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
       if (v !== null) setShowNotes(v === "1");
     } catch {}
   }, []);
+  useEffect(() => {
+    try {
+      const v = window.localStorage.getItem(VIEW_KEY);
+      if (v === "book" || v === "film") setView(v);
+    } catch {}
+  }, []);
+  const toggleView = () =>
+    setView((v) => {
+      const next = v === "film" ? "book" : "film";
+      try {
+        window.localStorage.setItem(VIEW_KEY, next);
+      } catch {}
+      return next;
+    });
   const toggleNotes = () =>
     setShowNotes((v) => {
       try {
@@ -95,9 +135,25 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
   }, [episode.id, step, foundClues, metCharacters, seenSuspects, explored, current.type]);
 
   const next = useCallback(() => setStep((s) => Math.min(s + 1, steps.length - 1)), [steps.length]);
-  const back = useCallback(() => setStep((s) => Math.max(s - 1, 0)), []);
+  const back = useCallback(() => {
+    setPlaying(false);
+    setStep((s) => Math.max(s - 1, 0));
+  }, []);
 
-  // Keyboard: → / Space / Enter = next, ← = back, N = notebook
+  // Auto-play: advance on a timer, like an animatic. Pauses while a window is open.
+  useEffect(() => {
+    if (!playing || modalOpen) return;
+    if (current.type === "end") {
+      setPlaying(false);
+      return;
+    }
+    const beat = current.type === "beat" ? panel?.beats[current.beatIndex] : undefined;
+    const ms = current.type === "title" ? 2800 : beatDuration(beat);
+    const t = window.setTimeout(next, ms);
+    return () => window.clearTimeout(t);
+  }, [playing, modalOpen, current, panel, next]);
+
+  // Keyboard: → / Space / Enter = next, ← = back, N = notebook, P = play/pause
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (modalOpen || e.metaKey || e.ctrlKey || e.altKey) return;
@@ -111,6 +167,8 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
         back();
       } else if (e.key.toLowerCase() === "n" && !onControl) {
         setNotebookOpen(true);
+      } else if (e.key.toLowerCase() === "p" && !onControl) {
+        setPlaying((p) => !p);
       }
     };
     window.addEventListener("keydown", onKey);
@@ -185,6 +243,24 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
           <button
             type="button"
             className={styles.toolBtn}
+            aria-pressed={playing}
+            onClick={() => setPlaying((p) => !p)}
+            title="Play the episode like an animatic (P)"
+          >
+            <span aria-hidden="true">{playing ? "❚❚" : "▶"}</span>
+            <span className={styles.toolText}>{playing ? "Pause" : "Play"}</span>
+          </button>
+          <button
+            type="button"
+            className={styles.toolBtn}
+            onClick={toggleView}
+            title={view === "film" ? "Switch to the reading view: art with the words beside it" : "Switch to the film view: full-screen art with the words on it"}
+          >
+            {view === "film" ? "Book" : "Film"}<span className={styles.toolText}>&nbsp;view</span>
+          </button>
+          <button
+            type="button"
+            className={styles.toolBtn}
             aria-pressed={showNotes}
             onClick={toggleNotes}
             title="Show which art and text is canon, proposed or placeholder"
@@ -206,7 +282,12 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
         </div>
       </header>
 
-      <main className={styles.stage} onPointerDown={onPointerDown} onPointerUp={onPointerUp}>
+      <main
+        className={styles.stage}
+        data-film={view === "film" && current.type === "beat" ? "" : undefined}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+      >
         {current.type === "title" && scene && (
           <section key={`title-${scene.id}`} className={styles.titleCard} aria-live="polite">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -218,7 +299,23 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
           </section>
         )}
 
-        {current.type === "beat" && panel && (
+        {current.type === "beat" && panel && view === "film" && (
+          <CinemaStage
+            panel={panel}
+            beatIndex={current.beatIndex}
+            characters={episode.characters}
+            suspects={episode.suspects}
+            clues={episode.clues}
+            foundClues={foundClues}
+            showNotes={showNotes}
+            reducedMotion={reducedMotion}
+            onInteract={interact}
+            onPrompt={interactById}
+            onOpenClue={(id) => setInspecting(id)}
+          />
+        )}
+
+        {current.type === "beat" && panel && view === "book" && (
           <div className={styles.spread} data-tall={tall ? "" : undefined}>
             <PanelStage key={panel.id} panel={panel} showNotes={showNotes} foundClues={foundClues} onInspect={interact} />
             <div className={styles.words}>

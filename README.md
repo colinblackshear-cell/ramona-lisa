@@ -56,6 +56,8 @@ Every piece of content carries a `status`: `canon`, `approved`, `proposed` or `p
 
 ## Reader features in this build
 
+- **Film view (default):** each panel fills the screen like a frame of an animatic. The camera glides between beats (push in, pull out, pans, leaning toward whoever speaks or whatever there is to examine), panels cross-fade, wipe or cut, and captions, balloons, sound effects, intro cards and suspect cards are set over the art. **Play** (or P) runs it hands-free, timed for reading. Panels can carry `anchors` (where each speaker stands) and per-beat `shots` to direct the camera by hand. **Book view** switches back to art with the words beside it.
+
 - Panel-by-panel reading: tap, click, swipe, arrow keys, Space/Enter; Back works everywhere
 - Scene title cards, character introduction cards, captions, speech/whisper/thought/shout balloons, SFX
 - Panel transitions (fade, slide, iris, cut) and slow camera moves; all disabled under `prefers-reduced-motion`

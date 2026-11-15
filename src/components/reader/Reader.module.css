@@ -83,6 +83,7 @@
 }
 
 .toolBtn {
+  white-space: nowrap;
   min-height: 36px;
   padding: 4px 12px;
   border: 2px solid var(--gold);
@@ -357,13 +358,20 @@
 }
 
 /* ---------- Small screens ---------- */
-@media (max-width: 860px) {
+@media (max-width: 1500px) {
   .sceneName {
     display: none;
   }
 }
 
 @media (max-width: 640px) {
+  .toolText {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
   .toolbar {
     flex-wrap: wrap;
     row-gap: 8px;
@@ -393,4 +401,12 @@
   .navBtn {
     flex: 1;
   }
+}
+
+/* Film view: the stage becomes a full-bleed frame. */
+.stage[data-film] {
+  padding: 0;
+  display: block;
+  overflow: hidden;
+  touch-action: pan-y;
 }
