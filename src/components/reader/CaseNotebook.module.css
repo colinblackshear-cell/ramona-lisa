@@ -1,0 +1,98 @@
+.section {
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px dashed rgb(16 40 59 / 0.4);
+}
+
+.heading {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.35rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.count {
+  font-family: var(--font-caption);
+  font-size: 0.85rem;
+  background: var(--midnight);
+  color: var(--gold-bright);
+  padding: 2px 8px;
+}
+
+.case {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.empty {
+  margin: 0;
+  font-style: italic;
+  opacity: 0.75;
+}
+
+.list,
+.people {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.clue {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 12px;
+  align-items: center;
+  text-align: left;
+  background: #fbf5e6;
+  border: 2px solid var(--midnight);
+  box-shadow: 3px 3px 0 var(--gold);
+  padding: 8px;
+  cursor: zoom-in;
+  line-height: 1.4;
+  font-size: 0.88rem;
+}
+
+.clue img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--midnight);
+}
+
+.clue strong,
+.person strong {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.missing {
+  border: 2px dashed rgb(16 40 59 / 0.5);
+  padding: 14px;
+  text-align: center;
+  font-weight: 700;
+  opacity: 0.6;
+}
+
+.person {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 12px;
+  align-items: center;
+  font-size: 0.82rem;
+}
+
+.person img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--midnight);
+}

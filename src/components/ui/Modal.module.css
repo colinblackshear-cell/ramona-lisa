@@ -1,0 +1,96 @@
+.dialog {
+  border: var(--rule);
+  padding: 0;
+  background: var(--cream);
+  color: var(--ink);
+  box-shadow: 8px 8px 0 var(--gold);
+  max-height: calc(100dvh - 32px);
+}
+
+.dialog::backdrop {
+  background: rgb(10 26 39 / 0.78);
+}
+
+.inner {
+  position: relative;
+  background-image: var(--grain);
+  background-blend-mode: multiply;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 36px);
+}
+
+.card {
+  width: min(680px, calc(100vw - 32px));
+}
+
+.sheet {
+  margin: 0 0 0 auto;
+  height: 100dvh;
+  max-height: 100dvh;
+  width: min(440px, 100vw);
+  box-shadow: -6px 0 0 var(--gold);
+}
+
+.sheet .inner {
+  max-height: 100dvh;
+  height: 100%;
+}
+
+.dialog[open] {
+  animation: rise 260ms var(--ease-out);
+}
+
+.sheet[open] {
+  animation: slideIn 300ms var(--ease-out);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(40px); opacity: 0; }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: var(--rule);
+  background: var(--midnight);
+  color: var(--cream);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+  color: var(--gold-bright);
+}
+
+.close {
+  background: none;
+  border: 2px solid var(--gold);
+  width: 40px;
+  height: 40px;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--gold-bright);
+  border-radius: var(--radius);
+}
+
+.close:hover {
+  background: var(--gold);
+  color: var(--midnight);
+}
+
+.body {
+  padding: 18px;
+  overflow-y: auto;
+}

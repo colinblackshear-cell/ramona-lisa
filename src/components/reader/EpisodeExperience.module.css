@@ -1,0 +1,139 @@
+.cover {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 72px);
+  padding: clamp(20px, 5vw, 64px);
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.art img {
+  width: 100%;
+  max-height: 88dvh;
+  object-fit: contain;
+  border: 3px solid var(--cream);
+  outline: 2px solid var(--midnight);
+  box-shadow: 10px 10px 0 var(--gold);
+  animation: coverIn 1s var(--ease-out);
+}
+
+@keyframes coverIn {
+  from { opacity: 0; transform: translateY(14px) rotate(-1deg); }
+}
+
+.panel {
+  background: var(--cream);
+  background-image: var(--grain);
+  background-blend-mode: multiply;
+  color: var(--midnight);
+  padding: clamp(22px, 4vw, 44px);
+  border: var(--rule);
+  box-shadow: 8px 8px 0 var(--gold);
+}
+
+.kicker {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #6f5524;
+}
+
+.title {
+  margin: 14px 0 6px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  line-height: 0.95;
+}
+
+.ep {
+  display: block;
+  font-family: var(--font-caption);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: var(--midnight-soft);
+}
+
+.place {
+  display: inline-block;
+  margin: 6px 0 18px;
+  padding: 2px 10px;
+  background: var(--midnight);
+  color: var(--gold-bright);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.logline {
+  margin: 0 0 24px;
+  font-size: 1.08rem;
+  line-height: 1.55;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.primary,
+.secondary {
+  min-height: 50px;
+  padding: 10px 24px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  border: var(--rule);
+  cursor: pointer;
+}
+
+.primary {
+  background: var(--midnight);
+  color: var(--gold-bright);
+  box-shadow: 4px 4px 0 var(--gold);
+}
+
+.primary:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--gold);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--midnight);
+}
+
+.howto {
+  margin: 24px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  opacity: 0.85;
+}
+
+.proto {
+  margin: 14px 0 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+@media (max-width: 820px) {
+  .cover {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+  .art img {
+    max-height: 58dvh;
+    margin: 0 auto;
+    width: auto;
+    max-width: 100%;
+  }
+}
