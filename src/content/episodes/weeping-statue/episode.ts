@@ -10,12 +10,16 @@ import { seriesRegulars } from "@/content/series/characters";
  * the walnut-smelling tear, Barnaby, the Egyptian-gallery red herring, and the
  * solution (in solution.ts, which the reader never imports).
  *
- * APPROVED by Colin (2026-11-15): the scene 1–3 dialogue and captions, the
+ * APPROVED by Colin (2026-11-15): the dialogue and captions of The Summons,
+ * The Pull and The Look-in (scenes 2–4 since the cold open was added), the
  * Bloomsbury attic, the coal-hatch route in, and the v2 additions (Mortimer's
  * ghost-sheets line, the stomach bicker, Barnaby vanishing at 12:17, the
  * double-meaning tear reaction). Engine v2 wins where it differs from the bible.
- * PROPOSED (Phase 3, needs approval): scenes 4–6, the suspect card wording,
- * the professor's name, the crate clue wording and the "Tuesday" deadline.
+ * PROPOSED (needs approval): the cold-open captions (scene 1, The Vanishing),
+ * scenes 5–7, the suspect card wording, the professor's name, the crate clue
+ * wording and the "Tuesday" deadline.
+ * ART: all panels use Colin's supplied art (2026-11-15 batch) except Mortimer
+ * on the chimney and the label-photo close-up, which are still needed.
  */
 
 const A = "episodes/weeping-statue/art/";
@@ -43,24 +47,18 @@ const art = {
     status: "canon",
   },
   attic: {
-    src: "series/ramona-window-strip.webp",
-    alt: "Placeholder. Ramona's attic has not been illustrated yet: Ramona is asleep in her armchair when Kit bursts in.",
-    width: 518,
-    height: 172,
-    status: "placeholder",
-    brief:
-      "Ramona's attic at night: Ramona fast asleep, curled in a worn armchair beneath a skylight; Kit tumbling in through a round window. Two-colour risograph, matching the rooftop plates.",
-    placeholderReference: "series/ramona-portrait.webp",
+    src: `${A}attic-wake.webp`,
+    alt: "A cluttered Bloomsbury attic at night under a moonlit skylight. Ramona sleeps sprawled in a worn armchair, arms folded, while Kit flies in through a round window, mouth open mid-shout.",
+    width: 1741,
+    height: 850,
+    status: "canon",
   },
   atticCloseUp: {
-    src: "series/ramona-portrait.webp",
-    alt: "Placeholder. Close-up of Ramona's face, borrowed from her character sheet: bandit-mask markings, gold eyes, one eyebrow unimpressed.",
-    width: 180,
-    height: 240,
-    status: "placeholder",
-    brief:
-      "Ramona close-up in the armchair, one eye open, lamplight on her bandit mask as she hears the word 'cameo'.",
-    placeholderReference: "series/ramona-portrait.webp",
+    src: `${A}attic-closeup.webp`,
+    alt: "Close-up: Ramona slumped on the arm of her chair, one gold eye open beneath her bandit mask, the other still shut. Lamplight and books behind her.",
+    width: 1738,
+    height: 849,
+    status: "canon",
   },
   museumExterior: {
     src: `${A}british-museum-exterior.webp`,
@@ -90,69 +88,89 @@ const art = {
     height: 520,
     status: "canon",
   },
-  ghostsPlaceholder: {
-    src: "series/kit-portrait.webp",
-    alt: "Placeholder. The Egyptian gallery at night: pale, sheet-like shapes drift between the sarcophagi while Kit stares, wide-eyed.",
-    width: 150,
-    height: 180,
-    status: "placeholder",
-    brief:
-      "The Egyptian gallery through an archway: pale sheet-shapes drifting low between the sarcophagi. Kit wide-eyed and bristling; Ramona unimpressed, picking a thread of lint off her sleeve.",
-    placeholderReference: "series/kit-portrait.webp",
+  coldBust: {
+    src: `${A}cold-open-weeping-bust.webp`,
+    alt: "A dark Roman gallery. Moonlight falls on the marble empress; a dark tear runs down her cheek. On the wall, a clock reads 12:17.",
+    width: 1738,
+    height: 848,
+    status: "canon",
   },
-  lucienPlaceholder: {
-    src: "",
-    alt: "Placeholder. A silver fox in a tailored coat lounges against the propped-open service door, blocking the corridor.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief:
-      "The service corridor, low angle from cat height: Lucien Vale, a silver fox in a tailored coat, lounging against the propped service door and smiling with too many teeth. Funny and a little creepy. Needs a Lucien character sheet first.",
-  },
-  crateGlimpse: {
-    src: "",
-    alt: "Placeholder. Through the service door, the loading dock: a wooden crate stencilled with the letter T, and a gloved human hand holding a phone. No face is visible.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief:
-      "Over Lucien's shoulder, through the service door: the loading dock under one bare bulb. A wooden crate stencilled 'T', straw spilling from the lid. A gloved human hand holding a phone at the edge of frame. No face.",
-  },
-  libraryDoor: {
-    src: "",
-    alt: "Placeholder. A tiny door in the Reading Room skirting board opens on a candlelit mouse library.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief:
-      "The Round Reading Room at night, from floor level: a tiny arched door in the skirting board, candlelight inside. Beyond it, an elderly mouse in spectacles among towers of matchbox-sized books and an ink pot.",
-  },
-  libraryLesson: {
-    src: "",
-    alt: "Placeholder. The elderly library mouse lectures from a book-stack lectern while Ramona listens and Kit eyes his supper.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief:
-      "Inside the skirting-board library: the professor lecturing from a lectern of stacked books, a cameo diagram chalked behind him. Ramona attentive; Kit's eyes sliding toward a small pot on the desk.",
-  },
-  libraryInk: {
-    src: "",
-    alt: "Placeholder. Kit leans in to sniff a small pot on the professor's desk while the mouse waves her off.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief:
-      "Comic beat: Kit nose-first over the professor's little ink pot (she thinks it's pickled walnuts), the professor swatting at her with a quill, Ramona's face in her paw. Plant the professor's grumble in the same panel.",
+  coldGallery: {
+    src: `${A}egyptian-gallery-empty.webp`,
+    alt: "The Egyptian gallery at night: sarcophagi, glass cases and a seated pharaoh. Far down the hall, a small pale shape drifts along the floor.",
+    width: 1739,
+    height: 847,
+    status: "canon",
   },
   emptyCase: {
-    src: "",
-    alt: "Placeholder. The cameo's empty display case: a dent in the velvet and a museum label with a small photograph of the cameo.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief:
-      "The cameo's empty case beside the bust: an oval dent in the velvet, and a museum label with a small photo of the cameo. The empress's hair on the photo must be visibly tighter and more elaborate than the bust's curls (fair-play plant).",
+    src: `${A}empty-case.webp`,
+    alt: "A brass-and-glass case beside the marble empress's shoulder. On the dark velvet inside, an empty oval dent. A small museum label sits in the corner.",
+    width: 1741,
+    height: 853,
+    status: "canon",
+  },
+  coldTail: {
+    src: `${A}corridor-silver-tail.webp`,
+    alt: "A museum service corridor under one caged bulb. At the far end the service door stands ajar, and a pale-tipped tail is just slipping through.",
+    width: 1739,
+    height: 849,
+    status: "canon",
+  },
+  ghosts: {
+    src: `${A}egyptian-ghosts.webp`,
+    alt: "Kit, fur on end, peers around an archway into the Egyptian gallery, where three small sheet-ghosts drift between the cases. Beside her, Ramona picks lint off her sleeve, unimpressed.",
+    width: 1737,
+    height: 852,
+    status: "canon",
+  },
+  lucien: {
+    src: `${A}lucien-corridor.webp`,
+    alt: "In the service corridor, seen from behind the two cats: Lucien Vale, a silver fox in a long coat and cravat, lounges on the floor against the service door, grinning with far too many teeth.",
+    width: 1740,
+    height: 850,
+    status: "canon",
+  },
+  crateGlimpse: {
+    src: `${A}loading-dock-crate.webp`,
+    alt: "Past Lucien's ear and coat collar, through the service door: a loading dock under a bare bulb, a wooden crate stencilled with a big T, and a van outside. At the edge of the frame, a gloved human hand holds a phone.",
+    width: 1741,
+    height: 850,
+    status: "canon",
+  },
+  libraryDoor: {
+    src: `${A}library-door.webp`,
+    alt: "The domed Reading Room at night. Ramona stands while Kit crouches at a tiny arched door in the skirting board; inside, by candlelight, an elderly mouse in spectacles peers out.",
+    width: 1740,
+    height: 849,
+    status: "canon",
+  },
+  libraryLesson: {
+    src: `${A}library-lesson.webp`,
+    alt: "In the candlelit mouse library, Kit and Ramona lie squeezed in, chins on paws, as the professor points his quill at a chalk diagram: a cameo separated into its layers, an empress's profile on top.",
+    width: 1740,
+    height: 854,
+    status: "canon",
+  },
+  libraryInk: {
+    src: `${A}library-ink.webp`,
+    alt: "Kit, eyes closed in bliss, sniffs at the professor's ink bottle while he swats at her with a quill. Behind them, Ramona has her face in her paw. A bowl of walnuts sits on the desk.",
+    width: 1740,
+    height: 849,
+    status: "canon",
+  },
+  tapEar: {
+    src: `${A}ramona-taps-ear.webp`,
+    alt: "High on the marble empress, Ramona perches on the bust's shoulder and knocks with one knuckle just behind the empress's ear, listening, eyes narrowed. A dark tear stains the empress's cheek.",
+    width: 1503,
+    height: 989,
+    status: "canon",
+  },
+  crateDetail: {
+    src: `${A}crate-detail.webp`,
+    alt: "Magnified: a wooden crate stencilled with a large letter T, straw spilling from under its lid.",
+    width: 440,
+    height: 440,
+    status: "canon",
   },
   curlsDetail: {
     src: `${A}bust-curls-detail.webp`,
@@ -163,7 +181,7 @@ const art = {
   },
   earDetail: {
     src: `${A}bust-ear-detail.webp`,
-    alt: "Magnified: behind the bust's left ear, in the shadow of the curls.",
+    alt: "Magnified: Ramona's knuckle against the marble just behind the empress's ear. A fine crack runs through the curls there.",
     width: 440,
     height: 440,
     status: "canon",
@@ -208,6 +226,7 @@ const guests: Character[] = [
     role: "Silver fox · Very much in the way",
     species: "Fox",
     tagline: "Good coat. Bad manners. Always standing exactly where you need to go.",
+    portrait: `${A}lucien-portrait.webp`,
     accent: "gold",
     status: "canon",
     kind: "henchman",
@@ -228,6 +247,7 @@ const guests: Character[] = [
     role: "Library mouse · Historian",
     species: "Mouse",
     tagline: "Has read every book in the Reading Room. Has opinions about all of them.",
+    portrait: `${A}professor-portrait.webp`,
     accent: "blue",
     status: "proposed", // canon character; the name is a proposal
     kind: "ally",
@@ -252,8 +272,57 @@ export const weepingStatue: Episode = {
 
   scenes: [
     {
-      id: "rooftops",
+      id: "vanishing",
       number: 1,
+      title: "The Vanishing",
+      slug: "The British Museum · the night before",
+      storyBeat: "strange-event",
+      scriptStatus: "proposed",
+      panels: [
+        {
+          id: "vanishing-weep",
+          art: art.coldBust,
+          rituals: ["vanishing"],
+          camera: "push-in",
+          transition: "fade",
+          beats: [
+            { kind: "caption", style: "location", text: "The British Museum. The night before." },
+            { kind: "caption", text: "Every night at exactly 12:17, the empress weeps." },
+            { kind: "sfx", text: "drip." },
+          ],
+        },
+        {
+          id: "vanishing-ghost",
+          art: art.coldGallery,
+          rituals: ["vanishing", "red-herring"],
+          transition: "fade",
+          beats: [{ kind: "caption", text: "And on the same nights, something pale goes drifting through the Egyptian rooms." }],
+        },
+        {
+          id: "vanishing-case",
+          art: art.emptyCase,
+          rituals: ["vanishing"],
+          transition: "cut",
+          beats: [
+            { kind: "caption", text: "Tonight, while the empress cried, her portrait went missing." },
+            { kind: "caption", text: "Nobody saw a thing." },
+          ],
+        },
+        {
+          id: "vanishing-tail",
+          art: art.coldTail,
+          rituals: ["vanishing"],
+          plant: "The silver tail at the service door: the first sight of Lucien. Never mention it in the text.",
+          camera: "push-in",
+          transition: "fade",
+          beats: [{ kind: "caption", text: "Almost nobody." }],
+        },
+      ],
+    },
+
+    {
+      id: "rooftops",
+      number: 2,
       title: "The Summons",
       slug: "London rooftops · 11:52 p.m.",
       storyBeat: "case",
@@ -323,7 +392,7 @@ export const weepingStatue: Episode = {
 
     {
       id: "attic",
-      number: 2,
+      number: 3,
       title: "The Pull",
       slug: "An attic in Bloomsbury · 12:20 a.m.",
       storyBeat: "case",
@@ -387,7 +456,7 @@ export const weepingStatue: Episode = {
 
     {
       id: "museum",
-      number: 3,
+      number: 4,
       title: "The Look-in",
       slug: "The British Museum · the following night, 12:09 a.m.",
       storyBeat: "suspects",
@@ -459,7 +528,7 @@ export const weepingStatue: Episode = {
 
     {
       id: "corridor",
-      number: 4,
+      number: 5,
       title: "The Henchman",
       slug: "The Egyptian gallery and the service corridor · 12:21 a.m.",
       storyBeat: "suspects",
@@ -467,7 +536,7 @@ export const weepingStatue: Episode = {
       panels: [
         {
           id: "corridor-ghosts",
-          art: art.ghostsPlaceholder,
+          art: art.ghosts,
           rituals: ["red-herring"],
           transition: "slide",
           beats: [
@@ -482,7 +551,7 @@ export const weepingStatue: Episode = {
         },
         {
           id: "corridor-lucien",
-          art: art.lucienPlaceholder,
+          art: art.lucien,
           rituals: ["henchman"],
           transition: "cut",
           beats: [
@@ -519,14 +588,16 @@ export const weepingStatue: Episode = {
             { kind: "dialogue", speaker: "kit", text: "We do?", delivery: "whisper" },
             { kind: "dialogue", speaker: "ramona", text: "We do tonight. We need a library.", delivery: "whisper" },
           ],
-          interactions: [{ id: "inspect-crate", kind: "inspect", label: "Look at the crate", clue: "crate-t" }],
+          interactions: [
+            { id: "inspect-crate", kind: "inspect", label: "Look at the crate", region: { x: 49, y: 32, w: 24, h: 42 }, clue: "crate-t" },
+          ],
         },
       ],
     },
 
     {
       id: "library",
-      number: 5,
+      number: 6,
       title: "The Research",
       slug: "Behind the Reading Room skirting boards · 12:40 a.m.",
       storyBeat: "investigation",
@@ -602,7 +673,7 @@ export const weepingStatue: Episode = {
 
     {
       id: "hollow",
-      number: 6,
+      number: 7,
       title: "The Hollow Empress",
       slug: "The Roman gallery · 12:58 a.m.",
       storyBeat: "investigation",
@@ -610,9 +681,7 @@ export const weepingStatue: Episode = {
       panels: [
         {
           id: "hollow-tap",
-          art: art.empress,
-          artNeeded: "Close-up of Ramona on the plinth, tapping the bust behind its ear; a hairline seam in the curls.",
-          focus: "68% 20%",
+          art: art.tapEar,
           camera: "push-in",
           transition: "fade",
           beats: [
@@ -627,7 +696,7 @@ export const weepingStatue: Episode = {
               id: "inspect-ear",
               kind: "inspect",
               label: "Examine behind the empress's ear",
-              region: { x: 64, y: 14, w: 12, h: 12 },
+              region: { x: 46, y: 28, w: 15, h: 22 },
               clue: "hollow-bust",
             },
           ],
@@ -636,6 +705,8 @@ export const weepingStatue: Episode = {
           id: "hollow-case",
           art: art.emptyCase,
           plant: "The label photo's curls versus the bust's curls.",
+          artNeeded:
+            "Insert close-up of the museum label with a small photo of the cameo: the empress's hair as tight, deep-drilled ringlets stacked high, clearly different from the bust's big smooth waves. The label in this panel is blank.",
           transition: "slide",
           beats: [
             { kind: "caption", text: "Beside the bust: the cameo's case. Empty velvet, and the museum label." },
@@ -645,7 +716,9 @@ export const weepingStatue: Episode = {
             { kind: "dialogue", speaker: "kit", text: "You always say that when you know something." },
             { kind: "dialogue", speaker: "ramona", text: "I always know something." },
           ],
-          interactions: [{ id: "inspect-curls", kind: "inspect", label: "Compare the curls", clue: "curls" }],
+          interactions: [
+            { id: "inspect-curls", kind: "inspect", label: "Compare the curls", region: { x: 67, y: 67, w: 17, h: 18 }, clue: "curls" },
+          ],
         },
       ],
     },
@@ -677,6 +750,7 @@ export const weepingStatue: Episode = {
       summary: "A shipping crate on the loading dock, stencilled 'T'. Someone on the phone gives Lucien orders.",
       detail:
         "A plain wooden shipping crate on the loading dock, stencilled with a single letter: T. Straw packing pokes out from under the lid. Beside it, a gloved hand holds a phone. The voice says 'Tuesday' and calls the fox by name.",
+      image: art.crateDetail,
       reaction: [
         { kind: "dialogue", speaker: "kit", text: "T for... treats?" },
         { kind: "dialogue", speaker: "ramona", text: "T for 'take note', Kit." },

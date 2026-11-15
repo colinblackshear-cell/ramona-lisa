@@ -48,9 +48,9 @@ Story canon = the series bible + **The Mystery Engine v2** (`docs/mystery-engine
 Every piece of content carries a `status`: `canon`, `approved`, `proposed` or `placeholder`, and panels can be tagged with the Mystery Engine `ritual` they perform. The reader's **Notes** toggle shows these labels, plus any art still needed.
 
 - **Canon:** characters, Mortimer's summons, the pull (Ramona asleep in her armchair, "Get your vest."), the look-in ("Is it?"), the walnut-ink tear, Barnaby, all supplied artwork.
-- **Approved (Colin, 2026-11-15):** the scene 1–3 dialogue and captions, the Bloomsbury attic, the coal-hatch route in, and the Engine v2 additions (Mortimer's ghost-sheets line, the stomach bicker, Barnaby vanishing at 12:17, the double-meaning tear).
-- **Proposed (Phase 3, awaiting approval):** scenes 4–6 (the henchman, the research, the hollow empress), suspect card wording, Professor Ambrose Nib, the crate marked 'T' and the "Tuesday" deadline, the cameo facts.
-- **Placeholder:** Ramona's attic (scene 2). Mortimer is not yet drawn into the tip panel.
+- **Approved (Colin, 2026-11-15):** the dialogue and captions of The Summons, The Pull and The Look-in, the Bloomsbury attic, the coal-hatch route in, and the Engine v2 additions (Mortimer's ghost-sheets line, the stomach bicker, Barnaby vanishing at 12:17, the double-meaning tear).
+- **Proposed (awaiting approval):** the cold-open captions (scene 1, The Vanishing), scenes 5–7 (the henchman, the research, the hollow empress), suspect card wording, Professor Ambrose Nib, the crate marked 'T' and the "Tuesday" deadline, the cameo facts.
+- **Art still needed:** Mortimer on the chimney (the summons panel shows Kit alone) and a close-up of the cameo's label photo (the label in the empty-case panel is blank).
 
 `content/episodes/<id>/solution.ts` holds the worksheet, suspects and solution. The reader never imports it, so spoilers don't ship to the browser until the reveal is built.
 
