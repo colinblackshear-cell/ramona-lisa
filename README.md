@@ -48,8 +48,7 @@ Story canon = the series bible + **The Mystery Engine v2** (`docs/mystery-engine
 Every piece of content carries a `status`: `canon`, `approved`, `proposed` or `placeholder`, and panels can be tagged with the Mystery Engine `ritual` they perform. The reader's **Notes** toggle shows these labels, plus any art still needed.
 
 - **Canon:** characters, Mortimer's summons, the pull (Ramona asleep in her armchair, "Get your vest."), the look-in ("Is it?"), the walnut-ink tear, Barnaby, all supplied artwork.
-- **Approved (Colin, 2026-11-15, under Engine v1):** the scene 1–3 dialogue and captions, the Bloomsbury attic, the coal-hatch route in.
-- **Proposed for Engine v2:** Mortimer's ghost-sheets line, the stomach bicker, Barnaby vanishing at 12:17, the new tear reaction.
+- **Approved (Colin, 2026-11-15):** the scene 1–3 dialogue and captions, the Bloomsbury attic, the coal-hatch route in, and the Engine v2 additions (Mortimer's ghost-sheets line, the stomach bicker, Barnaby vanishing at 12:17, the double-meaning tear).
 - **Placeholder:** Ramona's attic (scene 2). Mortimer is not yet drawn into the tip panel.
 
 `content/episodes/<id>/solution.ts` holds the worksheet, suspects and solution. The reader never imports it, so spoilers don't ship to the browser until the reveal is built.

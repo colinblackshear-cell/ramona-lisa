@@ -10,10 +10,10 @@ import { seriesRegulars } from "@/content/series/characters";
  * the walnut-smelling tear, Barnaby, the Egyptian-gallery red herring, and the
  * solution (in solution.ts, which the reader never imports).
  *
- * APPROVED by Colin (2026-11-15, under Engine v1): the scene 1–3 dialogue and
- * captions, the Bloomsbury attic and the coal-hatch route in.
- * PROPOSED for v2 (needs approval): Mortimer's ghost-sheets line, the stomach
- * bicker lines, Barnaby vanishing at 12:17, and the new tear reaction.
+ * APPROVED by Colin (2026-11-15): the scene 1–3 dialogue and captions, the
+ * Bloomsbury attic, the coal-hatch route in, and the v2 additions (Mortimer's
+ * ghost-sheets line, the stomach bicker, Barnaby vanishing at 12:17, the
+ * double-meaning tear reaction). Engine v2 wins where it differs from the bible.
  */
 
 const A = "episodes/weeping-statue/art/";
@@ -137,7 +137,7 @@ export const weepingStatue: Episode = {
       title: "The Summons",
       slug: "London rooftops · 11:52 p.m.",
       storyBeat: "case",
-      scriptStatus: "proposed",
+      scriptStatus: "approved",
       panels: [
         {
           id: "rooftops-establishing",
@@ -207,7 +207,7 @@ export const weepingStatue: Episode = {
       title: "The Pull",
       slug: "An attic in Bloomsbury · 12:20 a.m.",
       storyBeat: "case",
-      scriptStatus: "proposed",
+      scriptStatus: "approved",
       panels: [
         {
           id: "attic-wake",
@@ -271,7 +271,7 @@ export const weepingStatue: Episode = {
       title: "The Look-in",
       slug: "The British Museum · the following night, 12:09 a.m.",
       storyBeat: "suspects",
-      scriptStatus: "proposed",
+      scriptStatus: "approved",
       panels: [
         {
           id: "museum-exterior",
