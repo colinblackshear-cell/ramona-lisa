@@ -410,3 +410,194 @@
   overflow: hidden;
   touch-action: pan-y;
 }
+
+/* ---------- Theatre: the film view is shown on a cinema screen ---------- */
+.reader[data-theatre] {
+  position: relative;
+  grid-template-rows: 1fr;
+  background: #020609;
+  overflow: hidden;
+}
+
+.reader[data-theatre] .toolbar,
+.reader[data-theatre] .controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.reader[data-theatre] .toolbar {
+  top: 0;
+  background: linear-gradient(rgb(5 15 24 / 0.96), rgb(5 15 24 / 0.82));
+  border-bottom-color: rgb(196 154 77 / 0.35);
+}
+
+.reader[data-theatre] .controls {
+  bottom: 0;
+  background: rgb(5 15 24 / 0.82);
+  border-top-color: rgb(196 154 77 / 0.2);
+}
+
+.reader[data-lights-down] {
+  cursor: none;
+}
+
+.reader[data-lights-down] .toolbar {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+.reader[data-lights-down] .controls {
+  opacity: 0;
+  transform: translateY(100%);
+  pointer-events: none;
+}
+
+.reader[data-theatre] .stage {
+  position: relative;
+  grid-row: 1;
+  height: 100dvh;
+  padding: 0;
+  display: block;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.house {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 72px 2.5vw 88px;
+  container-type: size;
+  background:
+    radial-gradient(ellipse 75% 60% at 50% 46%, rgb(196 154 77 / 0.1), transparent 70%),
+    #020609;
+  transition: padding 900ms cubic-bezier(0.45, 0, 0.2, 1);
+}
+
+.reader[data-lights-down] .house {
+  padding: 3vh 1.5vw 8vh;
+}
+
+/* The screen keeps a 2:1 frame, the shape of the episode art. */
+.screen {
+  position: relative;
+  width: min(100cqw, 200cqh);
+  height: min(100cqh, 50cqw);
+  overflow: hidden;
+  background: #000;
+  box-shadow:
+    0 0 0 1px rgb(196 154 77 / 0.12),
+    0 0 90px rgb(196 154 77 / 0.14),
+    0 40px 140px rgb(0 0 0 / 0.85);
+}
+
+/* Projector grain and the faintest flicker. */
+.screen::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: 10;
+  pointer-events: none;
+  background: var(--grain);
+  opacity: 0.32;
+  mix-blend-mode: overlay;
+  animation: grain 700ms steps(4) infinite;
+}
+
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-3%, 2%); }
+  50% { transform: translate(2%, -3%); }
+  75% { transform: translate(-2%, -1%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Two rows of seat backs in silhouette at the bottom of the house. */
+.seats {
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: 0;
+  height: 78px;
+  z-index: 15;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 40px 34px at 50% 100%, #010305 96%, transparent 100%) 0 100% / 96px 56px repeat-x,
+    radial-gradient(ellipse 44px 40px at 50% 100%, #000 96%, transparent 100%) 48px 100% / 96px 40px repeat-x;
+  opacity: 0.95;
+}
+
+.reader[data-lights-down] .seats {
+  height: 64px;
+}
+
+.screen .titleCard,
+.screen .endCard {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  outline: none;
+  display: grid;
+  place-content: center;
+  overflow-y: auto;
+  background: #000;
+  animation: fadeUp 1400ms ease both;
+}
+
+.screen .titleBg {
+  opacity: 0.28;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; }
+}
+
+.presents {
+  margin: 0 0 clamp(18px, 4cqh, 40px);
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.2cqw, 2rem);
+  letter-spacing: 0.08em;
+  color: var(--cream);
+  animation: fadeUp 2200ms ease both;
+}
+
+.presents span {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-caption);
+  font-size: 0.5em;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+@media (max-width: 700px) and (orientation: portrait) {
+  .house,
+  .reader[data-lights-down] .house {
+    padding: 0;
+  }
+  .reader[data-theatre] .stage {
+    padding: 122px 0 72px;
+    position: relative;
+  }
+  .reader[data-lights-down] .stage {
+    padding: 0;
+  }
+  .house {
+    position: relative;
+    height: 100%;
+  }
+  .screen {
+    width: 100%;
+    height: 100%;
+  }
+  .seats {
+    display: none;
+  }
+}

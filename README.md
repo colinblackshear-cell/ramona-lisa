@@ -50,13 +50,13 @@ Every piece of content carries a `status`: `canon`, `approved`, `proposed` or `p
 - **Canon:** characters, Mortimer's summons, the pull (Ramona asleep in her armchair, "Get your vest."), the look-in ("Is it?"), the walnut-ink tear, Barnaby, all supplied artwork.
 - **Approved (Colin, 2026-11-15):** the dialogue and captions of The Summons, The Pull and The Look-in, the Bloomsbury attic, the coal-hatch route in, and the Engine v2 additions (Mortimer's ghost-sheets line, the stomach bicker, Barnaby vanishing at 12:17, the double-meaning tear).
 - **Proposed (awaiting approval):** the cold-open captions (scene 1, The Vanishing), scenes 5–7 (the henchman, the research, the hollow empress), suspect card wording, Professor Ambrose Nib, the crate marked 'T' and the "Tuesday" deadline, the cameo facts.
-- **Art still needed:** Mortimer on the chimney (the summons panel shows Kit alone) and a close-up of the cameo's label photo (the label in the empty-case panel is blank).
+- **Art:** every panel now has Colin's art. Shot list v3 (32 more in-between shots, prompts 28–59) is planned in the project's art-prompts folder.
 
 `content/episodes/<id>/solution.ts` holds the worksheet, suspects and solution. The reader never imports it, so spoilers don't ship to the browser until the reveal is built.
 
 ## Reader features in this build
 
-- **Film view (default):** each panel fills the screen like a frame of an animatic. The camera glides between beats (push in, pull out, pans, leaning toward whoever speaks or whatever there is to examine), panels cross-fade, wipe or cut, and captions, balloons, sound effects, intro cards and suspect cards are set over the art. **Play** (or P) runs it hands-free, timed for reading. Panels can carry `anchors` (where each speaker stands) and per-beat `shots` to direct the camera by hand. **Book view** switches back to art with the words beside it.
+- **Film view (default):** each panel fills the screen like a frame of an animatic. The camera glides between beats (push in, pull out, pans, leaning toward whoever speaks or whatever there is to examine), panels cross-fade, wipe or cut, and captions, balloons, sound effects, intro cards and suspect cards are set over the art. **Play** (or P) runs it hands-free, timed for reading. It plays in a theatre: a 2:1 screen in a dark house with seat silhouettes and projector grain, and the controls dim away (lights down) while it plays. Panels can carry `anchors` (where each speaker stands); a line from an anchored speaker cuts to their close-up and the next beat cuts back, like coverage in an edit. Per-beat `shots` direct the camera by hand. **Book view** switches back to art with the words beside it.
 
 - Panel-by-panel reading: tap, click, swipe, arrow keys, Space/Enter; Back works everywhere
 - Scene title cards, character introduction cards, captions, speech/whisper/thought/shout balloons, SFX

@@ -64,11 +64,15 @@ export function shotFor(panel: Panel, i: number): CameraShot {
       break;
   }
   const beat = panel.beats[i];
+  // Coverage: when we know where the speaker stands, cut to a close-up on them,
+  // then cut back to the wide when the next line belongs to nobody we can see.
   if (beat?.kind === "dialogue" && panel.anchors?.[beat.speaker]) {
     const a = panel.anchors[beat.speaker];
-    x = x * 0.35 + a.x * 0.65;
-    y = y * 0.35 + a.y * 0.65;
-    zoom = Math.max(zoom, 1.14);
+    return { x: a.x, y: a.y, zoom: a.zoom ?? 1.75, cut: true };
+  }
+  if (panel.anchors && i > 0) {
+    const prev = panel.beats[i - 1];
+    if (prev?.kind === "dialogue" && panel.anchors[prev.speaker]) return { x, y, zoom, cut: true };
   }
   if (beat?.kind === "prompt") {
     const it = panel.interactions?.find((x) => x.id === beat.interaction);
@@ -82,13 +86,13 @@ export function shotFor(panel: Panel, i: number): CameraShot {
 }
 
 /** Lay the art out in the frame: fill it like a film frame, or letterbox art that would lose too much. */
-function layout(frame: Size, ar: number, shot: CameraShot, nativeW: number) {
+function layout(frame: Size, ar: number, shot: CameraShot, nativeW: number, minVisible = 0.5) {
   const coverW = Math.max(frame.w, frame.h * ar);
   const coverH = coverW / ar;
   const containW = Math.min(frame.w, frame.h * ar);
   const visible = (frame.w * frame.h) / (coverW * coverH);
   // Fill the frame unless that would crop away most of the art or blow a small crop up until it blurs.
-  let w = visible < 0.5 ? containW : coverW;
+  let w = visible < minVisible ? containW : coverW;
   w = Math.min(w, Math.max(containW, nativeW * 1.7));
   const h = w / ar;
   const contain = w < frame.w - 1 || h < frame.h - 1;
@@ -179,11 +183,12 @@ function ArtLayer({
   const placeholder = art.status === "placeholder";
   const ar = placeholder ? 3 / 2 : art.width / art.height;
   const shot = reducedMotion ? { ...shotFor(panel, beatIndex), zoom: 1 } : shotFor(panel, beatIndex);
-  const { w, h, ox, oy, z, contain } = layout(frame, ar, placeholder ? { x: 50, y: 50, zoom: 1 } : shot, placeholder ? 99999 : art.width);
+  const { w, h, ox, oy, z, contain } = layout(frame, ar, placeholder ? { x: 50, y: 50, zoom: 1 } : shot, placeholder ? 99999 : art.width, frame.h > frame.w * 0.9 ? 0.3 : 0.5);
   const world: CSSProperties = {
     width: w,
     height: h,
     transform: `translate3d(${ox}px, ${oy}px, 0) scale(${z})`,
+    transition: shot.cut ? "none" : undefined,
   };
 
   return (

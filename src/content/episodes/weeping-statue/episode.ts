@@ -18,9 +18,7 @@ import { seriesRegulars } from "@/content/series/characters";
  * PROPOSED (needs approval): the cold-open captions (scene 1, The Vanishing),
  * scenes 5–7, the suspect card wording, the professor's name, the crate clue
  * wording and the "Tuesday" deadline.
- * ART: all panels use Colin's supplied art or crops of it, except Mortimer on
- * the chimney, the label-photo close-up and the walk back across the gallery
- * (prompts 3, 18 and 27), which are still needed.
+ * ART: every panel uses Colin's supplied art or crops of it.
  */
 
 const A = "episodes/weeping-statue/art/";
@@ -314,12 +312,25 @@ const art = {
     status: "canon",
   },
   planReturn: {
-    src: "",
-    alt: 'Planned shot. The cats slip back across the quiet Roman gallery toward the bust; guards stand far off at their posts.',
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: 'PLANNED SHOT (new art, prompt 27). The Roman gallery, quiet again: Kit and Ramona padding across the moonlit floor toward the towering empress bust, two guards tiny and far off at their posts. Ramona starting to climb the plinth.',
+    src: `${A}gallery-return.webp`,
+    alt: "Back in the moonlit Roman gallery, Ramona climbs the empress's plinth while Kit creeps low beside it; two guards stand far off at their posts.",
+    width: 1501,
+    height: 989,
+    status: "canon",
+  },
+  mortimerChimney: {
+    src: `${A}mortimer-chimney.webp`,
+    alt: "Mortimer the pigeon lands in a flurry of feathers on the chimney pot beside Kit, who grins at him; Big Ben and a full moon behind.",
+    width: 1739,
+    height: 853,
+    status: "canon",
+  },
+  labelPhoto: {
+    src: `${A}label-photo.webp`,
+    alt: "Close-up of the brass museum label: a small photo of the cameo shows the empress with tight, stacked honeycomb curls. The bust behind, out of focus, has big smooth waves under a laurel wreath.",
+    width: 1502,
+    height: 992,
+    status: "canon",
   },
   curlsDetail: {
     src: `${A}bust-curls-detail.webp`,
@@ -530,10 +541,10 @@ export const weepingStatue: Episode = {
         },
         {
           id: "rooftops-summons",
-          art: art.rooftopWide,
+          art: art.mortimerChimney,
           rituals: ["summons", "red-herring"],
-          artNeeded: "Mortimer the pigeon landing on the chimney beside Kit (this panel currently shows Kit alone).",
-          focus: "30% 40%",
+          focus: "50% 40%",
+          anchors: { kit: { x: 35, y: 40 }, mortimer: { x: 62, y: 38 } },
           camera: "pull-out",
           transition: "cut",
           beats: [
@@ -612,6 +623,7 @@ export const weepingStatue: Episode = {
         {
           id: "attic-chair",
           art: art.attic,
+          anchors: { ramona: { x: 22, y: 42 }, kit: { x: 72, y: 28 } },
           focus: "20% 55%",
           camera: "push-in",
           transition: "cut",
@@ -660,6 +672,7 @@ export const weepingStatue: Episode = {
         {
           id: "attic-rise",
           art: art.planRamonaRises,
+          anchors: { ramona: { x: 85, y: 12 } },
           transition: "cut",
           beats: [
             { kind: "dialogue", speaker: "ramona", text: "Get your vest." },
@@ -698,6 +711,7 @@ export const weepingStatue: Episode = {
         {
           id: "museum-gallery",
           art: art.gallery,
+          anchors: { barnaby: { x: 35, y: 55 } },
           focus: "35% 60%",
           camera: "pan-left",
           transition: "slide",
@@ -715,6 +729,7 @@ export const weepingStatue: Episode = {
         {
           id: "museum-hiding",
           art: art.planHiding,
+          anchors: { ramona: { x: 20, y: 28 }, kit: { x: 30, y: 55 } },
           transition: "cut",
           beats: [
             { kind: "dialogue", speaker: "kit", text: "He's shaking worse than I am.", delivery: "whisper" },
@@ -804,6 +819,7 @@ export const weepingStatue: Episode = {
         {
           id: "corridor-lucien",
           art: art.lucien,
+          anchors: { lucien: { x: 73, y: 30 }, kit: { x: 30, y: 72 } },
           transition: "cut",
           rituals: ["henchman"],
           beats: [
@@ -887,6 +903,7 @@ export const weepingStatue: Episode = {
         {
           id: "library-door",
           art: art.libraryDoor,
+          anchors: { kit: { x: 52, y: 45 } },
           transition: "fade",
           beats: [
             { kind: "caption", text: "Kit knows a door that isn't on any plan." },
@@ -911,6 +928,7 @@ export const weepingStatue: Episode = {
         {
           id: "library-lesson",
           art: art.libraryLesson,
+          anchors: { ramona: { x: 40, y: 48 } },
           rituals: ["research"],
           transition: "fade",
           beats: [
@@ -937,6 +955,7 @@ export const weepingStatue: Episode = {
         {
           id: "library-lesson-2",
           art: art.libraryLesson,
+          anchors: { professor: { x: 65, y: 38 } },
           transition: "cut",
           beats: [
             {
@@ -951,6 +970,7 @@ export const weepingStatue: Episode = {
         {
           id: "library-ink",
           art: art.libraryInk,
+          anchors: { kit: { x: 30, y: 45 }, professor: { x: 80, y: 35 } },
           rituals: ["accidental-clue", "running-bicker"],
           transition: "cut",
           beats: [
@@ -995,7 +1015,7 @@ export const weepingStatue: Episode = {
         {
           id: "hollow-return",
           art: art.planReturn,
-          artNeeded: "New art: prompt 27.",
+          anchors: { ramona: { x: 52, y: 45 }, kit: { x: 25, y: 75 } },
           camera: "push-in",
           transition: "fade",
           beats: [
@@ -1005,6 +1025,7 @@ export const weepingStatue: Episode = {
         {
           id: "hollow-tap",
           art: art.tapEar,
+          anchors: { ramona: { x: 72, y: 38 } },
           camera: "push-in",
           transition: "cut",
           beats: [
@@ -1026,17 +1047,24 @@ export const weepingStatue: Episode = {
         {
           id: "hollow-case",
           art: art.emptyCase,
-          plant: "The label photo's curls versus the bust's curls.",
-          artNeeded:
-            "Insert close-up of the museum label with a small photo of the cameo: the empress's hair as tight, deep-drilled ringlets stacked high, clearly different from the bust's big smooth waves. The label in this panel is blank.",
           transition: "slide",
           beats: [
             { kind: "caption", text: "Beside the bust: the cameo's case. Empty velvet, and the museum label." },
             { kind: "dialogue", speaker: "kit", text: "There she is. Same empress, on the label photo." },
+          ],
+        },
+        {
+          id: "hollow-label",
+          art: art.labelPhoto,
+          plant: "The label photo's curls versus the bust's curls.",
+          focus: "32% 65%",
+          camera: "push-in",
+          transition: "cut",
+          beats: [
             { kind: "prompt", interaction: "inspect-curls", text: "Compare the curls on the label photo with the bust. (Optional)" },
           ],
           interactions: [
-            { id: "inspect-curls", kind: "inspect", label: "Compare the curls", region: { x: 67, y: 67, w: 17, h: 18 }, clue: "curls" },
+            { id: "inspect-curls", kind: "inspect", label: "Compare the curls", region: { x: 24, y: 50, w: 22, h: 36 }, clue: "curls" },
           ],
         },
         {

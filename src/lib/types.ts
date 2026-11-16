@@ -258,7 +258,7 @@ export interface Panel {
    * Film view: where each speaker sits in the art (percent of the image).
    * The camera leans toward whoever is talking and balloons point their way.
    */
-  anchors?: Record<CharacterId, { x: number; y: number }>;
+  anchors?: Record<CharacterId, { x: number; y: number; zoom?: number }>;
   /** Film view: per-beat camera (index matches beats). Missing entries are automatic. */
   shots?: (CameraShot | null)[];
   beats: Beat[];
@@ -270,6 +270,8 @@ export interface CameraShot {
   x: number;
   y: number;
   zoom: number;
+  /** Cut straight to this framing instead of gliding, like an edit. */
+  cut?: boolean;
 }
 
 /** Episode structure step from the series bible (section 7). */

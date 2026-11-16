@@ -61,6 +61,17 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
   const [justFound, setJustFound] = useState(false);
   const [view, setView] = useState<"film" | "book">("film");
   const [playing, setPlaying] = useState(false);
+  const [idle, setIdle] = useState(false);
+  const idleTimer = useRef<number | undefined>(undefined);
+  const wake = useCallback(() => {
+    setIdle(false);
+    window.clearTimeout(idleTimer.current);
+    idleTimer.current = window.setTimeout(() => setIdle(true), 2600);
+  }, []);
+  useEffect(() => {
+    if (playing) wake();
+    return () => window.clearTimeout(idleTimer.current);
+  }, [playing, wake]);
   const reducedMotion = useReducedMotion();
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
 
@@ -214,8 +225,102 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
   const sceneNumber = scene?.number;
   const progressPct = Math.round((step / (steps.length - 1)) * 100);
 
+  const content = (
+    <>
+        {current.type === "title" && scene && (
+          <section key={`title-${scene.id}`} className={styles.titleCard} aria-live="polite">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            {scene.panels[0]?.art.status !== "placeholder" && <img className={styles.titleBg} src={asset(scene.panels[0].art.src)} alt="" />}
+            {scene.number === 1 && (
+              <p className={styles.presents}>
+                The Adventures of Ramona Lisa
+                <span>
+                  Episode {episode.number} · {episode.title}
+                </span>
+              </p>
+            )}
+            <p className={styles.titleKicker}>Scene {scene.number}</p>
+            <h1 className={styles.titleText}>{scene.title}</h1>
+            <p className={styles.titleSlug}>{scene.slug}</p>
+            {showNotes && <p className={styles.noteChip}>Script: {scene.scriptStatus}</p>}
+          </section>
+        )}
+
+        {current.type === "beat" && panel && view === "film" && (
+          <CinemaStage
+            panel={panel}
+            beatIndex={current.beatIndex}
+            characters={episode.characters}
+            suspects={episode.suspects}
+            clues={episode.clues}
+            foundClues={foundClues}
+            showNotes={showNotes}
+            reducedMotion={reducedMotion}
+            onInteract={interact}
+            onPrompt={interactById}
+            onOpenClue={(id) => setInspecting(id)}
+          />
+        )}
+
+        {current.type === "beat" && panel && view === "book" && (
+          <div className={styles.spread} data-tall={tall ? "" : undefined}>
+            <PanelStage key={panel.id} panel={panel} showNotes={showNotes} foundClues={foundClues} onInspect={interact} />
+            <div className={styles.words}>
+              <TextTrack
+                key={panel.id}
+                beats={visibleBeats}
+                characters={episode.characters}
+                suspects={episode.suspects}
+                clues={episode.clues}
+                onPrompt={interactById}
+                onOpenClue={(id) => setInspecting(id)}
+              />
+            </div>
+          </div>
+        )}
+
+        {current.type === "end" && (
+          <section className={styles.endCard}>
+            <p className={styles.titleKicker}>End of prototype</p>
+            <h1 className={styles.titleText}>To be continued…</h1>
+            <p className={styles.endText}>
+              You found {foundClues.length} of {episode.clues.length} {episode.clues.length === 1 ? "clue" : "clues"}.
+            </p>
+            {foundClues.length < episode.clues.length && (
+              <button
+                type="button"
+                className={styles.primary}
+                onClick={() => {
+                  const missing = episode.scenes
+                    .flatMap((s) => s.panels)
+                    .find((p) => p.interactions?.some((i) => i.kind === "inspect" && !foundClues.includes(i.clue)));
+                  if (missing) setStep(stepForPanel(steps, missing.id, episode) + missing.beats.length - 1);
+                }}
+              >
+                Go back for the missed clue
+              </button>
+            )}
+            <div className={styles.endActions}>
+              <button type="button" className={styles.secondary} onClick={() => setNotebookOpen(true)}>
+                Open case notebook
+              </button>
+              <button type="button" className={styles.secondary} onClick={() => setStep(0)}>
+                Read again
+              </button>
+            </div>
+            {episode.continuation && <p className={styles.endNote}>{episode.continuation}</p>}
+          </section>
+        )}
+    </>
+  );
+
   return (
-    <div className={styles.reader}>
+    <div
+      className={styles.reader}
+      data-theatre={view === "film" ? "" : undefined}
+      data-lights-down={view === "film" && playing && idle && !modalOpen ? "" : undefined}
+      onPointerMove={wake}
+    >
       <header className={styles.toolbar}>
         <button type="button" className={styles.brand} onClick={onExit} aria-label={`${episode.title}: back to cover`}>
           <span className={styles.brandEp}>Ep. {episode.number}</span>
@@ -288,81 +393,13 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
         onPointerDown={onPointerDown}
         onPointerUp={onPointerUp}
       >
-        {current.type === "title" && scene && (
-          <section key={`title-${scene.id}`} className={styles.titleCard} aria-live="polite">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            {scene.panels[0]?.art.status !== "placeholder" && <img className={styles.titleBg} src={asset(scene.panels[0].art.src)} alt="" />}
-            <p className={styles.titleKicker}>Scene {scene.number}</p>
-            <h1 className={styles.titleText}>{scene.title}</h1>
-            <p className={styles.titleSlug}>{scene.slug}</p>
-            {showNotes && <p className={styles.noteChip}>Script: {scene.scriptStatus}</p>}
-          </section>
-        )}
-
-        {current.type === "beat" && panel && view === "film" && (
-          <CinemaStage
-            panel={panel}
-            beatIndex={current.beatIndex}
-            characters={episode.characters}
-            suspects={episode.suspects}
-            clues={episode.clues}
-            foundClues={foundClues}
-            showNotes={showNotes}
-            reducedMotion={reducedMotion}
-            onInteract={interact}
-            onPrompt={interactById}
-            onOpenClue={(id) => setInspecting(id)}
-          />
-        )}
-
-        {current.type === "beat" && panel && view === "book" && (
-          <div className={styles.spread} data-tall={tall ? "" : undefined}>
-            <PanelStage key={panel.id} panel={panel} showNotes={showNotes} foundClues={foundClues} onInspect={interact} />
-            <div className={styles.words}>
-              <TextTrack
-                key={panel.id}
-                beats={visibleBeats}
-                characters={episode.characters}
-                suspects={episode.suspects}
-                clues={episode.clues}
-                onPrompt={interactById}
-                onOpenClue={(id) => setInspecting(id)}
-              />
-            </div>
+        {view === "film" ? (
+          <div className={styles.house}>
+            <div className={styles.screen}>{content}</div>
+            <div className={styles.seats} aria-hidden="true" />
           </div>
-        )}
-
-        {current.type === "end" && (
-          <section className={styles.endCard}>
-            <p className={styles.titleKicker}>End of prototype</p>
-            <h1 className={styles.titleText}>To be continued…</h1>
-            <p className={styles.endText}>
-              You found {foundClues.length} of {episode.clues.length} {episode.clues.length === 1 ? "clue" : "clues"}.
-            </p>
-            {foundClues.length < episode.clues.length && (
-              <button
-                type="button"
-                className={styles.primary}
-                onClick={() => {
-                  const missing = episode.scenes
-                    .flatMap((s) => s.panels)
-                    .find((p) => p.interactions?.some((i) => i.kind === "inspect" && !foundClues.includes(i.clue)));
-                  if (missing) setStep(stepForPanel(steps, missing.id, episode) + missing.beats.length - 1);
-                }}
-              >
-                Go back for the missed clue
-              </button>
-            )}
-            <div className={styles.endActions}>
-              <button type="button" className={styles.secondary} onClick={() => setNotebookOpen(true)}>
-                Open case notebook
-              </button>
-              <button type="button" className={styles.secondary} onClick={() => setStep(0)}>
-                Read again
-              </button>
-            </div>
-            {episode.continuation && <p className={styles.endNote}>{episode.continuation}</p>}
-          </section>
+        ) : (
+          content
         )}
       </main>
 
