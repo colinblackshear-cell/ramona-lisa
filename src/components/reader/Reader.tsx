@@ -11,6 +11,7 @@ import { EvidenceInspector } from "./EvidenceInspector";
 import { CaseNotebook } from "./CaseNotebook";
 import { ArtifactExplorer } from "./ArtifactExplorer";
 import { CinemaStage } from "./CinemaStage";
+import { CaseBoard } from "./CaseBoard";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import styles from "./Reader.module.css";
 
@@ -77,7 +78,8 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
 
   const current = steps[step];
   const { scene, panel, visibleBeats } = resolveStep(episode, current);
-  const modalOpen = inspecting !== null || notebookOpen || exploring !== null;
+  const [deducing, setDeducing] = useState(false);
+  const modalOpen = inspecting !== null || notebookOpen || exploring !== null || deducing;
 
   // Production notes preference
   useEffect(() => {
@@ -195,6 +197,7 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
   };
   const interact = (it: Interaction) => {
     if (it.kind === "inspect") inspect(it.clue);
+    else if (it.kind === "deduce") setDeducing(true);
     else setExploring(it.artifact);
   };
   const interactById = (interactionId: string) => {
@@ -281,8 +284,8 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
 
         {current.type === "end" && (
           <section className={styles.endCard}>
-            <p className={styles.titleKicker}>End of prototype</p>
-            <h1 className={styles.titleText}>To be continued…</h1>
+            <p className={styles.titleKicker}>{episode.continuation ? "End of prototype" : `Episode ${episode.number} · The end`}</p>
+            <h1 className={styles.titleText}>{episode.continuation ? "To be continued…" : "Case closed."}</h1>
             <p className={styles.endText}>
               You found {foundClues.length} of {episode.clues.length} {episode.clues.length === 1 ? "clue" : "clues"}.
             </p>
@@ -433,6 +436,7 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
           setExploring(id);
         }}
       />
+      <CaseBoard open={deducing} deductions={episode.deductions} onClose={() => setDeducing(false)} />
       <ArtifactExplorer
         artifact={episode.artifacts?.find((a) => a.id === exploring) ?? null}
         onClose={() => setExploring(null)}

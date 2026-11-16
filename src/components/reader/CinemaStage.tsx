@@ -183,7 +183,7 @@ function ArtLayer({
   const placeholder = art.status === "placeholder";
   const ar = placeholder ? 3 / 2 : art.width / art.height;
   const shot = reducedMotion ? { ...shotFor(panel, beatIndex), zoom: 1 } : shotFor(panel, beatIndex);
-  const { w, h, ox, oy, z, contain } = layout(frame, ar, placeholder ? { x: 50, y: 50, zoom: 1 } : shot, placeholder ? 99999 : art.width, frame.h > frame.w * 0.9 ? 0.3 : 0.5);
+  const { w, h, ox, oy, z, contain } = layout(frame, ar, placeholder ? { x: 50, y: 50, zoom: 1 } : shot, placeholder ? 99999 : art.width, frame.h > frame.w * 0.9 ? (placeholder ? 1.01 : 0.3) : 0.5);
   const world: CSSProperties = {
     width: w,
     height: h,

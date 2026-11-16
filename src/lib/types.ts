@@ -130,7 +130,15 @@ export interface ExploreInteraction {
   artifact: string;
 }
 
-export type Interaction = InspectInteraction | ExploreInteraction;
+/** Open the case board: the reader answers the episode's deductions (who, how, why). */
+export interface DeduceInteraction {
+  id: string;
+  kind: "deduce";
+  label: string;
+  region?: Region;
+}
+
+export type Interaction = InspectInteraction | ExploreInteraction | DeduceInteraction;
 
 /* ---------- The treasure ---------- */
 
@@ -205,6 +213,8 @@ export interface Deduction {
   answer: string;
   /** Clues that make this answerable (fair-play check). */
   requires: ClueId[];
+  /** Shown after a wrong pick: a nudge, never the answer. */
+  hint?: string;
   explanation: string;
 }
 
