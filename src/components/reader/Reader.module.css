@@ -577,27 +577,97 @@
   color: var(--gold);
 }
 
-@media (max-width: 700px) and (orientation: portrait) {
+/* The menu button that brings the controls back after the lights go down. */
+.menuBtn {
+  position: absolute;
+  top: max(10px, env(safe-area-inset-top));
+  right: max(10px, env(safe-area-inset-right));
+  z-index: 25;
+  width: 44px;
+  height: 44px;
+  display: none;
+  place-items: center;
+  font-size: 1.2rem;
+  color: var(--gold-bright);
+  background: rgb(5 15 24 / 0.55);
+  border: 1px solid rgb(196 154 77 / 0.45);
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0.75;
+  backdrop-filter: blur(4px);
+  animation: fadeUp 900ms ease both;
+}
+
+.reader[data-lights-down] .menuBtn {
+  display: grid;
+  cursor: pointer;
+}
+
+/* ---------- Phones: the screen is the whole phone ----------
+   Upright, the film is reframed vertically (see CinemaStage). Sideways, it plays
+   edge to edge. Either way the controls float over it and tuck away. */
+@media (max-width: 700px), (max-height: 500px) {
   .house,
   .reader[data-lights-down] .house {
+    position: absolute;
+    inset: 0;
     padding: 0;
   }
-  .reader[data-theatre] .stage {
-    padding: 122px 0 72px;
-    position: relative;
-  }
+  .reader[data-theatre] .stage,
   .reader[data-lights-down] .stage {
     padding: 0;
-  }
-  .house {
-    position: relative;
-    height: 100%;
   }
   .screen {
     width: 100%;
     height: 100%;
+    box-shadow: none;
   }
   .seats {
     display: none;
+  }
+  .reader[data-theatre] .toolbar {
+    padding-top: max(10px, env(safe-area-inset-top));
+  }
+  .reader[data-theatre] .controls {
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Sideways: one slim bar at the top and the buttons at the bottom, both see-through. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .reader[data-theatre] .toolbar {
+    flex-wrap: nowrap;
+    padding: 6px max(14px, env(safe-area-inset-right)) 6px max(14px, env(safe-area-inset-left));
+    background: linear-gradient(rgb(5 15 24 / 0.9), rgb(5 15 24 / 0.6));
+  }
+  .reader[data-theatre] .brandTitle {
+    display: none;
+  }
+  .reader[data-theatre] .brand {
+    flex: none;
+  }
+  .reader[data-theatre] .scenes {
+    order: 0;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto;
+    margin: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .reader[data-theatre] .sceneBtn {
+    flex: none;
+  }
+  .reader[data-theatre] .controls {
+    padding: 6px max(14px, env(safe-area-inset-right)) 6px max(14px, env(safe-area-inset-left));
+    background: linear-gradient(transparent, rgb(5 15 24 / 0.85));
+    border-top: 0;
+  }
+  .reader[data-theatre] .navBtn {
+    flex: 0 0 auto;
+    min-width: 96px;
+  }
+  .reader[data-theatre] .hint {
+    display: block;
   }
 }

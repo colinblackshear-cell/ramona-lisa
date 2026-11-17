@@ -64,15 +64,25 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
   const [playing, setPlaying] = useState(false);
   const [idle, setIdle] = useState(false);
   const idleTimer = useRef<number | undefined>(undefined);
+  // Phones (upright or sideways): the controls tuck away while you read, like a
+  // film, and a small menu button brings them back.
+  const [pocket, setPocket] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 700px), (max-height: 500px)");
+    const update = () => setPocket(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
   const wake = useCallback(() => {
     setIdle(false);
     window.clearTimeout(idleTimer.current);
-    idleTimer.current = window.setTimeout(() => setIdle(true), 2600);
-  }, []);
+    idleTimer.current = window.setTimeout(() => setIdle(true), pocket ? 3500 : 2600);
+  }, [pocket]);
   useEffect(() => {
-    if (playing) wake();
+    if (playing || pocket) wake();
     return () => window.clearTimeout(idleTimer.current);
-  }, [playing, wake]);
+  }, [playing, pocket, wake]);
   const reducedMotion = useReducedMotion();
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
 
@@ -219,7 +229,9 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
       if (dx < 0) next();
       else back();
     } else if (Math.abs(dx) < 8 && Math.abs(dy) < 8 && e.button === 0) {
-      next();
+      // On touch screens, a tap on the left edge goes back, like turning a page.
+      if (e.pointerType !== "mouse" && e.clientX < window.innerWidth * 0.25) back();
+      else next();
     }
   };
 
@@ -321,9 +333,19 @@ export function Reader({ episode, initial, onExit }: ReaderProps) {
     <div
       className={styles.reader}
       data-theatre={view === "film" ? "" : undefined}
-      data-lights-down={view === "film" && playing && idle && !modalOpen ? "" : undefined}
-      onPointerMove={wake}
+      data-lights-down={view === "film" && (playing || pocket) && idle && !modalOpen ? "" : undefined}
+      onPointerMove={(e) => {
+        if (e.pointerType === "mouse") wake();
+      }}
+      onPointerDownCapture={(e) => {
+        if ((e.target as HTMLElement).closest("header, footer")) wake();
+      }}
     >
+      {view === "film" && (
+        <button type="button" className={styles.menuBtn} onClick={wake} aria-label="Show controls">
+          <span aria-hidden="true">☰</span>
+        </button>
+      )}
       <header className={styles.toolbar}>
         <button type="button" className={styles.brand} onClick={onExit} aria-label={`${episode.title}: back to cover`}>
           <span className={styles.brandEp}>Ep. {episode.number}</span>

@@ -67,5 +67,6 @@ Every piece of content carries a `status`: `canon`, `approved`, `proposed` or `p
 - The full episode, 13 scenes, ending on a "Case closed." card
 - Treasure explorer for the stolen cameo: real history vs. invented-for-the-story facts, with a simple diagram
 - Kit's casebook (case, suspects, clues, treasure, characters met), episode/scene navigation, local save and resume
+- Phones: sideways, the film plays edge to edge; upright, it is reframed as a vertical cut (the art fills the screen and the camera pans across each picture and cuts to whoever speaks). Either way the controls tuck away while you read, a ☰ button brings them back, and a tap on the left edge goes back
 - Responsive: cinematic side-by-side spread on desktop, stacked panel-then-lettering on mobile, side-by-side for portrait art on tablets
 - Accessibility: every image has a text alternative, new lettering is announced via a polite live region, speaker and delivery are spoken, native dialogs trap focus and close on Escape, 44px touch targets

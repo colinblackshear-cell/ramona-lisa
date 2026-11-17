@@ -85,6 +85,27 @@ export function shotFor(panel: Panel, i: number): CameraShot {
   return { x, y, zoom };
 }
 
+/**
+ * Upright phones: the art fills the whole tall frame and the camera reframes it
+ * like a vertical cut of the film. Speakers and evidence get their close-up;
+ * everything else is a slow pan across the picture, beat by beat, starting the
+ * moment the panel arrives.
+ */
+export function verticalShot(panel: Panel, i: number, settled: boolean): CameraShot {
+  const base = shotFor(panel, i);
+  const beat = panel.beats[i];
+  const anchored = beat?.kind === "dialogue" && !!panel.anchors?.[beat.speaker];
+  const region = beat?.kind === "prompt" && panel.interactions?.find((x) => x.id === beat.interaction)?.region;
+  if (panel.shots?.[i] || anchored || region) return { x: base.x, y: base.y, zoom: anchored ? 1.08 : 1.05, cut: base.cut };
+  const f = parseFocus(panel.focus);
+  const dir = panel.camera === "pan-left" ? -1 : 1;
+  const n = Math.max(panel.beats.length, 1);
+  const t = n > 1 ? i / (n - 1) : 1;
+  const x = settled ? (n > 1 ? f.x - dir * 22 + dir * 44 * t : f.x + dir * 16) : f.x - dir * 40;
+  const zoom = panel.camera === "push-in" ? (settled ? 1 + 0.08 * t : 1) : 1;
+  return { x, y: f.y, zoom, cut: base.cut };
+}
+
 /** Lay the art out in the frame: fill it like a film frame, or letterbox art that would lose too much. */
 function layout(frame: Size, ar: number, shot: CameraShot, nativeW: number, minVisible = 0.5) {
   const coverW = Math.max(frame.w, frame.h * ar);
@@ -142,15 +163,15 @@ export function CinemaStage(props: CinemaStageProps) {
   }, [panel, beatIndex, props.reducedMotion]);
 
   const tall = size.h > size.w * 1.05;
-  const frame: Size = { w: size.w, h: tall ? Math.round(size.h * 0.56) : size.h };
+  const frame: Size = size;
 
   return (
     <div ref={ref} className={styles.cinema} data-tall={tall ? "" : undefined}>
       <div className={styles.frame} style={{ height: frame.h || undefined }}>
         {size.w > 0 && previous && previous.panel.id !== panel.id && (
-          <ArtLayer key={`prev-${previous.panel.id}`} {...props} panel={previous.panel} beatIndex={previous.beat} frame={frame} leaving />
+          <ArtLayer key={`prev-${previous.panel.id}`} {...props} panel={previous.panel} beatIndex={previous.beat} frame={frame} tall={tall} leaving />
         )}
-        {size.w > 0 && <ArtLayer key={panel.id} {...props} frame={frame} />}
+        {size.w > 0 && <ArtLayer key={panel.id} {...props} frame={frame} tall={tall} />}
         <div className={styles.vignette} aria-hidden="true" />
         {panel.beats[beatIndex]?.kind === "sfx" && (
           <p key={`sfx-${panel.id}-${beatIndex}`} className={styles.sfx} aria-hidden="true">
@@ -174,16 +195,26 @@ function ArtLayer({
   panel,
   beatIndex,
   frame,
+  tall,
   leaving,
   foundClues,
   reducedMotion,
   onInteract,
-}: CinemaStageProps & { frame: Size; leaving?: boolean }) {
+}: CinemaStageProps & { frame: Size; tall: boolean; leaving?: boolean }) {
   const { art } = panel;
   const placeholder = art.status === "placeholder";
   const ar = placeholder ? 3 / 2 : art.width / art.height;
-  const shot = reducedMotion ? { ...shotFor(panel, beatIndex), zoom: 1 } : shotFor(panel, beatIndex);
-  const { w, h, ox, oy, z, contain } = layout(frame, ar, placeholder ? { x: 50, y: 50, zoom: 1 } : shot, placeholder ? 99999 : art.width, frame.h > frame.w * 0.9 ? (placeholder ? 1.01 : 0.3) : 0.5);
+  // The vertical pan starts the moment a panel arrives: one frame at its start, then glide.
+  const [settled, setSettled] = useState(leaving || reducedMotion);
+  useEffect(() => {
+    if (settled) return;
+    const r = requestAnimationFrame(() => requestAnimationFrame(() => setSettled(true)));
+    return () => cancelAnimationFrame(r);
+  }, [settled]);
+  const camera = tall ? verticalShot(panel, beatIndex, settled) : shotFor(panel, beatIndex);
+  const shot = reducedMotion ? { ...camera, zoom: 1 } : camera;
+  const minVisible = tall ? (placeholder ? 1.01 : 0) : 0.5;
+  const { w, h, ox, oy, z, contain } = layout(frame, ar, placeholder ? { x: 50, y: 50, zoom: 1 } : shot, placeholder ? 99999 : art.width, minVisible);
   const world: CSSProperties = {
     width: w,
     height: h,
@@ -196,6 +227,7 @@ function ArtLayer({
       className={styles.layer}
       data-enter={leaving ? undefined : panel.transition ?? "fade"}
       data-leaving={leaving ? "" : undefined}
+      data-vertical={tall ? "" : undefined}
       aria-hidden={leaving ? true : undefined}
     >
       {contain && !placeholder && (
