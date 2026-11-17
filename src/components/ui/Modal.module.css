@@ -94,3 +94,30 @@
   padding: 18px;
   overflow-y: auto;
 }
+
+/* Kit's casebook: a scruffy lined notebook. */
+.notebook .inner {
+  background-color: #fbf6ea;
+  background-image: repeating-linear-gradient(transparent 0 27px, rgb(70 110 150 / 0.25) 27px 28px);
+  background-blend-mode: normal;
+  border-left: 22px solid var(--midnight);
+}
+.notebook .header {
+  background: transparent;
+  color: var(--midnight);
+  border-bottom: 2px solid rgb(168 67 47 / 0.5);
+}
+.notebook .title {
+  font-family: var(--font-sfx);
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  color: var(--midnight);
+}
+.notebook .close {
+  border-color: var(--midnight);
+  color: var(--midnight);
+}
+.notebook .body {
+  font-family: var(--font-letter);
+  font-size: 1.05rem;
+}

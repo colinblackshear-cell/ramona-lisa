@@ -45,7 +45,7 @@ export function CaseNotebook({
   const treasures = (episode.artifacts ?? []).filter((a) => explored.includes(a.id));
 
   return (
-    <Modal open={open} onClose={onClose} title="Kit's casebook" variant="sheet">
+    <Modal open={open} onClose={onClose} title="Kit's casebook" variant="notebook">
       <section className={styles.section}>
         <h3 className={styles.heading}>The case</h3>
         <p className={styles.case}>{episode.logline}</p>

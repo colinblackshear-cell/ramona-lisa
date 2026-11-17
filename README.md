@@ -56,17 +56,19 @@ Every piece of content carries a `status`: `canon`, `approved`, `proposed` or `p
 
 ## Reader features in this build
 
-- **Film view (default):** each panel fills the screen like a frame of an animatic. The camera glides between beats (push in, pull out, pans, leaning toward whoever speaks or whatever there is to examine), panels cross-fade, wipe or cut, and captions, balloons, sound effects, intro cards and suspect cards are set over the art. **Play** (or P) runs it hands-free, timed for reading. It plays in a theatre: a 2:1 screen in a dark house with seat silhouettes and projector grain, and the controls dim away (lights down) while it plays. Panels can carry `anchors` (where each speaker stands); a line from an anchored speaker cuts to their close-up and the next beat cuts back, like coverage in an edit. Per-beat `shots` direct the camera by hand. **Book view** switches back to art with the words beside it.
+The episode reads as a **comic book** (`src/components/comic/`).
 
-- Panel-by-panel reading: tap, click, swipe, arrow keys, Space/Enter; Back works everywhere
-- Scene title cards, character introduction cards, captions, speech/whisper/thought/shout balloons, SFX
-- Panel transitions (fade, slide, iris, cut) and slow camera moves; all disabled under `prefers-reduced-motion`
-- Six clues: three to examine on the art (magnified evidence view, also reachable from a text button, so no precise clicking is required) and three picked up from the story; a later clue can give an earlier one a "new reading"
-- Suspect cards dealt in the story and filed in Kit's casebook, with leads that unlock as clues turn up
+- **Cover:** the printed comic cover with **Open the comic** (or **Keep reading**).
+- **Pages:** `layout.ts` lays the script out as comic pages: a new page for every scene (with a scene title strip), small panels with little to say side by side, narrow panels with their lettering beside them, and a page ends when it is full (45 pages for the pilot). Wide tiers are framed on each panel's `focus` point.
+- **Lettering around the art:** captions sit above a panel and tuck over its top edge; speech balloons sit below and tuck over its bottom edge, their tails reaching in toward the speaker (from `anchors` where the script records them, otherwise alternating sides with a small speaker name). Words never sit over the middle of a picture. Hand-lettered balloons (Patrick Hand SC; whisper, thought and shout styles), storybook captions (IM Fell English SC), Bangers sound effects breaking out over frames.
+- **Panel by panel** (default on phones): one panel at a time, the whole picture uncropped. Tap to read on (a long panel scrolls first), tap the left edge to go back, double tap or the page button for the whole page. Held sideways, the art fills the screen with the words beside it.
+- **Whole pages** (default on laptops): swipe or ← → to turn the page; tap a panel to read it up close. On big screens two pages sit side by side as a spread.
+- Clues: a gold magnifier on the art and a "look closer" button; the evidence opens magnified and is filed in Kit's casebook. Clues heard in the story are stamped "Added to Kit's casebook".
+- Suspect cards dealt on the page and filed in Kit's casebook (a lined notebook), with leads that unlock as clues turn up
 - **Solve the case** board before the breakthrough: who, how and why, multiple choice, with a nudge for a wrong pick and the explanation for a right one. Optional; it never blocks the story
-- The full episode, 13 scenes, ending on a "Case closed." card
+- The full episode, 13 scenes, ending on a "Case closed!" page
 - Treasure explorer for the stolen cameo: real history vs. invented-for-the-story facts, with a simple diagram
-- Kit's casebook (case, suspects, clues, treasure, characters met), episode/scene navigation, local save and resume
-- Phones: sideways, the film plays edge to edge; upright, it is reframed as a vertical cut (the art fills the screen and the camera pans across each picture and cuts to whoever speaks). Either way the controls tuck away while you read, a ☰ button brings them back, and a tap on the left edge goes back
-- Responsive: cinematic side-by-side spread on desktop, stacked panel-then-lettering on mobile, side-by-side for portrait art on tablets
+- Contents (tap the page number): jump to any scene, and switch on **production notes** (art and script status, art still to come)
+- Keys: ← → and Space turn, Z switches page / panel, C opens the casebook. Your place is saved on this device.
+- The earlier film reader (`src/components/reader/Reader.tsx`, `CinemaStage.tsx`) is still in the code but no longer used.
 - Accessibility: every image has a text alternative, new lettering is announced via a polite live region, speaker and delivery are spoken, native dialogs trap focus and close on Escape, 44px touch targets

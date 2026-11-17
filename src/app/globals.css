@@ -12,6 +12,10 @@
   --font-display: var(--font-fell), "Iowan Old Style", Georgia, serif;
   --font-caption: var(--font-courier), "Courier New", monospace;
   --font-letter: var(--font-hand), "Comic Sans MS", system-ui, sans-serif;
+  --font-balloon: var(--font-hand-sc), var(--font-hand), "Comic Sans MS", system-ui, sans-serif;
+  --font-sfx: var(--font-bangers), Impact, sans-serif;
+  --balloon: #fbf6ea;
+  --parchment: #e9d29b;
 
   --radius: 3px;
   --rule: 2px solid var(--midnight);

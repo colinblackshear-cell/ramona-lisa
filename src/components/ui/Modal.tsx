@@ -7,8 +7,8 @@ interface ModalProps {
   open: boolean;
   onClose: () => void;
   title: string;
-  /** "sheet" slides in from the side (notebook); "card" is centred (evidence). */
-  variant?: "card" | "sheet";
+  /** "sheet" slides in from the side; "notebook" is a sheet of lined notebook paper; "card" is centred (evidence). */
+  variant?: "card" | "sheet" | "notebook";
   children: React.ReactNode;
 }
 
@@ -26,7 +26,7 @@ export function Modal({ open, onClose, title, variant = "card", children }: Moda
   return (
     <dialog
       ref={ref}
-      className={`${styles.dialog} ${styles[variant]}`}
+      className={`${styles.dialog} ${variant === "notebook" ? `${styles.sheet} ${styles.notebook}` : styles[variant]}`}
       aria-label={title}
       onClose={onClose}
       onClick={(e) => {

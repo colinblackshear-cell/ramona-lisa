@@ -24,7 +24,8 @@ export const emptyProgress: EpisodeProgress = {
   updatedAt: 0,
 };
 
-const key = (episodeId: string) => `ramona-lisa:progress:${episodeId}:v1`;
+// v2: "step" is the comic panel index (v1 counted film beats).
+const key = (episodeId: string) => `ramona-lisa:progress:${episodeId}:v2`;
 
 export function loadProgress(episodeId: string): EpisodeProgress | null {
   try {

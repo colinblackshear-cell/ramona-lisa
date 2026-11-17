@@ -3,75 +3,76 @@
 import { useState } from "react";
 import { getEpisode } from "@/lib/episodes";
 import { emptyProgress, useSavedProgress, type EpisodeProgress } from "@/lib/progress";
-import { series } from "@/content/series/series";
 import { asset } from "@/lib/asset";
-import { Reader } from "./Reader";
+import { ComicReader } from "@/components/comic/ComicReader";
 import styles from "./EpisodeExperience.module.css";
 
-/** Cover screen with Begin / Continue, then the reader. */
+/** The comic's cover: open it to start, or carry on where you left off. */
 export function EpisodeExperience({ episodeId }: { episodeId: string }) {
   const episode = getEpisode(episodeId)!;
   const { saved, loaded, reset, refresh } = useSavedProgress(episodeId);
   const [reading, setReading] = useState<EpisodeProgress | null>(null);
 
   if (reading) {
-    return <Reader episode={episode} initial={reading} onExit={() => {
+    return (
+      <ComicReader
+        episode={episode}
+        initial={reading}
+        onExit={() => {
           refresh();
           setReading(null);
-        }} />;
+        }}
+      />
+    );
   }
 
   const canResume = loaded && saved && saved.step > 0 && !saved.finished;
 
   return (
     <main className={styles.cover}>
-      <div className={styles.art}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={asset(episode.cover.src)} alt={episode.cover.alt} width={episode.cover.width} height={episode.cover.height} />
-      </div>
-      <section className={styles.panel}>
-        <p className={styles.kicker}>{series.title}</p>
-        <h1 className={styles.title}>
-          <span className={styles.ep}>Episode {episode.number}</span>
-          {episode.title}
-        </h1>
-        <p className={styles.place}>{episode.location}</p>
-        <p className={styles.logline}>{episode.logline}</p>
+      <article className={styles.comic} aria-label={`Episode ${episode.number}: ${episode.title}`}>
+        <div className={styles.art}>
+          {/* The cover art carries its own title lettering, so nothing is printed over it. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={asset(episode.cover.src)} alt={episode.cover.alt} width={episode.cover.width} height={episode.cover.height} />
+        </div>
+        <p className={styles.blurb}>{episode.logline}</p>
+        <p className={styles.footer}>
+          <span>No. {episode.number} · Episode {episode.number === 1 ? "one" : episode.number}</span>
+          <span>{episode.location}</span>
+        </p>
+      </article>
 
-        <div className={styles.actions}>
-          {canResume ? (
-            <>
-              <button type="button" className={styles.primary} onClick={() => setReading(saved!)}>
-                Continue reading
-              </button>
-              <button
-                type="button"
-                className={styles.secondary}
-                onClick={() => {
-                  reset();
-                  setReading({ ...emptyProgress });
-                }}
-              >
-                Start over
-              </button>
-            </>
-          ) : (
+      <div className={styles.actions}>
+        {canResume ? (
+          <>
+            <button type="button" className={styles.primary} onClick={() => setReading(saved!)}>
+              Keep reading
+            </button>
             <button
               type="button"
-              className={styles.primary}
-              onClick={() => setReading(saved?.finished ? { ...saved, step: 0, finished: false } : { ...emptyProgress })}
+              className={styles.secondary}
+              onClick={() => {
+                reset();
+                setReading({ ...emptyProgress });
+              }}
             >
-              Begin the case
+              Start from the first page
             </button>
-          )}
-        </div>
-
-        <p className={styles.howto}>
-          Read panel by panel with the arrow keys, a tap or a swipe. Look for the gold lens to examine evidence; every clue
-          is optional and saved to your case notebook. Your place is saved on this device.
+          </>
+        ) : (
+          <button
+            type="button"
+            className={styles.primary}
+            onClick={() => setReading(saved?.finished ? { ...saved, step: 0, finished: false } : { ...emptyProgress })}
+          >
+            Open the comic
+          </button>
+        )}
+        <p className={styles.proto}>
+          {episode.continuation ? `Prototype · scenes 1–${episode.scenes.length}` : `Pilot · ${episode.scenes.length} scenes · draft art in progress`}
         </p>
-        <p className={styles.proto}>{episode.continuation ? `Prototype · scenes 1–${episode.scenes.length} of the pilot` : `Pilot · ${episode.scenes.length} scenes · draft art in progress`}</p>
-      </section>
+      </div>
     </main>
   );
 }
