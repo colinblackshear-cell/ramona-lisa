@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { getEpisode } from "@/lib/episodes";
+import { getReadingEpisode } from "@/lib/episodes";
 import { emptyProgress, useSavedProgress, type EpisodeProgress } from "@/lib/progress";
 import { asset } from "@/lib/asset";
 import { ComicReader } from "@/components/comic/ComicReader";
@@ -9,7 +9,7 @@ import styles from "./EpisodeExperience.module.css";
 
 /** The comic's cover: open it to start, or carry on where you left off. */
 export function EpisodeExperience({ episodeId }: { episodeId: string }) {
-  const episode = getEpisode(episodeId)!;
+  const episode = getReadingEpisode(episodeId)!;
   const { saved, loaded, reset, refresh } = useSavedProgress(episodeId);
   const [reading, setReading] = useState<EpisodeProgress | null>(null);
 

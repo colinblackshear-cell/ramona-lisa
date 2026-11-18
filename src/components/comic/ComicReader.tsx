@@ -9,6 +9,7 @@ import { ArtifactExplorer } from "@/components/reader/ArtifactExplorer";
 import { CaseBoard } from "@/components/reader/CaseBoard";
 import { Modal } from "@/components/ui/Modal";
 import { ComicPanel } from "./ComicPanel";
+import { MovieView } from "./MovieView";
 import { isSide, layoutEpisode, type ComicPage } from "./layout";
 import styles from "./ComicReader.module.css";
 
@@ -20,7 +21,8 @@ interface Props {
 
 type Mode = "page" | "panel";
 
-const MODE_KEY = "ramona-lisa:comic-mode";
+// v2: the movie camera is the default everywhere.
+const MODE_KEY = "ramona-lisa:comic-mode:v2";
 const NOTES_KEY = "ramona-lisa:production-notes";
 
 function useMedia(query: string): boolean {
@@ -58,6 +60,14 @@ export function ComicReader({ episode, initial, onExit }: Props) {
   const [casebookOpen, setCasebookOpen] = useState(false);
   const [contentsOpen, setContentsOpen] = useState(false);
   const [justFound, setJustFound] = useState(false);
+  // Movie view: which part of a tall panel the camera is on, the scene title card, and Play.
+  const [stop, setStop] = useState(0);
+  const stopsRef = useRef(1);
+  const onStops = useCallback((n: number) => {
+    stopsRef.current = n;
+  }, []);
+  const [card, setCard] = useState<number | null>(null);
+  const [playing, setPlaying] = useState(false);
   const modalOpen = inspecting !== null || exploring !== null || deducing || casebookOpen || contentsOpen;
 
   const phone = useMedia("(max-width: 700px), (max-height: 560px)");
@@ -69,8 +79,7 @@ export function ComicReader({ episode, initial, onExit }: Props) {
     try {
       saved = window.localStorage.getItem(MODE_KEY);
     } catch {}
-    if (saved === "page" || saved === "panel") setModeRaw(saved);
-    else setModeRaw(window.matchMedia("(max-width: 700px), (max-height: 560px)").matches ? "panel" : "page");
+    setModeRaw(saved === "page" ? "page" : "panel");
     try {
       setShowNotes(window.localStorage.getItem(NOTES_KEY) === "1");
     } catch {}
@@ -134,24 +143,63 @@ export function ComicReader({ episode, initial, onExit }: Props) {
 
   const go = useCallback((to: number, d: 1 | -1) => {
     setDir(d);
+    setStop(0);
     setPos(Math.min(Math.max(to, 0), END));
   }, [END]);
 
+  // A scene title card, like a film, whenever the movie crosses into a new scene.
+  const shownScene = useRef<number | null>(null);
+  useEffect(() => {
+    if (mode !== "panel" || pos >= END) return;
+    const ref = panels[pos];
+    if (ref.panelIndex === 0 && shownScene.current !== ref.sceneIndex) setCard(ref.sceneIndex);
+    shownScene.current = ref.sceneIndex;
+  }, [pos, mode, panels, END]);
+  useEffect(() => {
+    if (card === null) return;
+    const t = window.setTimeout(() => setCard(null), 2600);
+    return () => window.clearTimeout(t);
+  }, [card]);
+
   const next = useCallback(() => {
     if (atEnd) return;
-    if (mode === "panel") return go(pos + 1, 1);
+    if (card !== null) return setCard(null);
+    if (mode === "panel") {
+      if (stop < stopsRef.current - 1) return setStop(stop + 1);
+      return go(pos + 1, 1);
+    }
     const last = group[group.length - 1];
     const after = pages[last.index + 1];
     go(after ? after.panels[0] : END, 1);
-  }, [atEnd, mode, pos, group, pages, go, END]);
+  }, [atEnd, card, mode, stop, pos, group, pages, go, END]);
 
   const back = useCallback(() => {
-    if (mode === "panel") return go(pos - 1, -1);
+    if (card !== null) return setCard(null);
+    if (mode === "panel") {
+      if (stop > 0) return setStop(stop - 1);
+      return go(pos - 1, -1);
+    }
     const first = atEnd ? pages.length : group[0].index;
     if (first === 0) return;
     const target = spread ? Math.max(0, first - 2) : first - 1;
     go(pages[target].panels[0], -1);
-  }, [mode, pos, atEnd, group, pages, spread, go]);
+  }, [card, mode, stop, pos, atEnd, group, pages, spread, go]);
+
+  // Play: the movie runs itself, each shot held long enough to read.
+  useEffect(() => {
+    if (!playing || modalOpen || mode !== "panel") return;
+    if (atEnd) {
+      setPlaying(false);
+      return;
+    }
+    let ms = 2600;
+    if (card === null) {
+      const chars = panels[pos].panel.beats.reduce((n, b) => n + ("text" in b ? b.text.length : 0), 0);
+      ms = Math.min(9000, chars ? 1500 + chars * 52 : 1900) / Math.max(1, stopsRef.current);
+    }
+    const t = window.setTimeout(next, ms);
+    return () => window.clearTimeout(t);
+  }, [playing, modalOpen, mode, atEnd, card, pos, stop, panels, next]);
 
   // Keyboard: ← → and space turn; Z switches page / panel; C opens the casebook.
   useEffect(() => {
@@ -166,6 +214,8 @@ export function ComicReader({ episode, initial, onExit }: Props) {
         back();
       } else if (e.key.toLowerCase() === "z" && !onControl) {
         setMode(mode === "page" ? "panel" : "page");
+      } else if (e.key.toLowerCase() === "p" && !onControl) {
+        setPlaying((v) => !v);
       } else if (e.key.toLowerCase() === "c" && !onControl) {
         setCasebookOpen(true);
       }
@@ -223,18 +273,15 @@ export function ComicReader({ episode, initial, onExit }: Props) {
       if (prev && now - prev.t < 250 && Math.hypot(e.clientX - prev.x, e.clientY - prev.y) < 30) {
         lastTap.current = null;
         setPos(prev.pos);
+        setStop(0);
+        setCard(null);
         setMode("page");
         return;
       }
       lastTap.current = { t: now, x: e.clientX, y: e.clientY, pos };
-      const stage = e.currentTarget as HTMLElement;
-      const rect = stage.getBoundingClientRect();
+      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+      setPlaying(false);
       if (e.clientX - rect.left < rect.width * 0.28) return back();
-      // A panel with a lot to say can be taller than the screen: read down it before moving on.
-      if (stage.scrollTop + stage.clientHeight < stage.scrollHeight - 8) {
-        stage.scrollBy({ top: stage.clientHeight * 0.75, behavior: "smooth" });
-        return;
-      }
       next();
     } else if (!target.closest("[role=button]")) {
       const rect = e.currentTarget.getBoundingClientRect();
@@ -276,7 +323,7 @@ export function ComicReader({ episode, initial, onExit }: Props) {
     );
   };
 
-  const renderPage = (page: ComicPage) => (
+  const renderPage = (page: ComicPage, focus?: number) => (
     <article key={page.index} className={styles.page} aria-label={`Page ${page.index + 1}`}>
       {page.sceneStart && sceneStrip(page.sceneIndex)}
       {page.rows.map((row) => (
@@ -286,7 +333,9 @@ export function ComicReader({ episode, initial, onExit }: Props) {
               key={r.flat}
               panel={r.panel}
               fit={row.length === 2 ? "half" : isSide(row) ? "side" : "full"}
-              onSelect={() => openPanel(r.flat)}
+              onSelect={focus === undefined ? () => openPanel(r.flat) : undefined}
+              flat={r.flat}
+              active={focus === r.flat}
               {...shared}
             />
           ))}
@@ -324,8 +373,8 @@ export function ComicReader({ episode, initial, onExit }: Props) {
               type="button"
               className={styles.iconBtn}
               onClick={() => setMode(mode === "page" ? "panel" : "page")}
-              aria-label={mode === "page" ? "Read panel by panel" : "See the whole page"}
-              title={mode === "page" ? "Panel by panel (Z)" : "Whole page (Z)"}
+              aria-label={mode === "page" ? "Watch it like a movie" : "See the whole page"}
+              title={mode === "page" ? "Movie (Z)" : "Whole page (Z)"}
             >
               {mode === "page" ? (
                 <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -391,14 +440,24 @@ export function ComicReader({ episode, initial, onExit }: Props) {
 
         {!atEnd && mode === "page" && (
           <div key={group[0].index} className={styles.spread} data-count={group.length} data-dir={dir}>
-            {group.map(renderPage)}
+            {group.map((p) => renderPage(p))}
           </div>
         )}
 
-        {!atEnd && mode === "panel" && current && (
-          <div key={current.flat} className={styles.guided} data-dir={dir}>
-            {current.panelIndex === 0 && sceneStrip(current.sceneIndex)}
-            <ComicPanel panel={current.panel} fit="guided" {...shared} />
+        {!atEnd && mode === "panel" && current && page && (
+          <MovieView key={page.index} page={renderPage(page, current.flat)} focus={current.flat} stop={stop} onStops={onStops} dir={dir} />
+        )}
+
+        {card !== null && mode === "panel" && (
+          <div className={styles.sceneCard} role="status" aria-live="polite">
+            {card === 0 && (
+              <p className={styles.presents}>
+                The Adventures of Ramona Lisa · Episode {episode.number}
+              </p>
+            )}
+            <span className={styles.cardNo}>Scene {episode.scenes[card].number}</span>
+            <h2 className={styles.cardTitle}>{episode.scenes[card].title}</h2>
+            <p className={styles.cardSlug}>{episode.scenes[card].slug}</p>
           </div>
         )}
       </main>
@@ -407,12 +466,21 @@ export function ComicReader({ episode, initial, onExit }: Props) {
         <footer className={styles.foot}>
           {mode === "panel" && page ? (
             <>
+              <button
+                type="button"
+                className={styles.play}
+                aria-pressed={playing}
+                onClick={() => setPlaying((v) => !v)}
+                title="Play it like a film (P)"
+              >
+                <span aria-hidden="true">{playing ? "❚❚" : "▶"}</span> {playing ? "Pause" : "Play"}
+              </button>
               <span className={styles.ticks} aria-label={`Panel ${panelOnPage + 1} of ${page.panels.length} on this page`}>
                 {page.panels.map((f) => (
                   <span key={f} data-on={f === pos ? "" : undefined} />
                 ))}
               </span>
-              <span className={styles.hint}>{phone ? "Tap to read on · double tap: page" : "→ read on · Z: whole page"}</span>
+              <span className={styles.hint}>{phone ? "Tap for the next shot" : "→ next shot · Z: whole page"}</span>
             </>
           ) : (
             <span className={styles.hint}>{phone ? "Swipe to turn · tap a panel" : "← → turn the page · click a panel to read it up close"}</span>

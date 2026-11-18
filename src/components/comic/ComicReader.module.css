@@ -457,3 +457,84 @@
   height: 20px;
   accent-color: var(--midnight);
 }
+
+/* ---------- Movie ---------- */
+.reader[data-mode="panel"] .stage {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+.sceneCard {
+  position: absolute;
+  inset: var(--bar) 0 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+  background: #050f18;
+  color: var(--cream);
+  animation: cardIn 2600ms ease forwards;
+  pointer-events: none;
+}
+@keyframes cardIn {
+  0% { opacity: 0; }
+  15%, 80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.presents {
+  margin: 0 0 14px;
+  font-family: var(--font-caption);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.cardNo {
+  font-family: var(--font-caption);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+}
+.cardTitle {
+  margin: 0;
+  font-family: var(--font-sfx);
+  font-weight: 400;
+  font-size: clamp(40px, 11vw, 76px);
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+  color: var(--gold-bright);
+  -webkit-text-stroke: 1.5px var(--midnight);
+  text-shadow: 4px 4px 0 var(--midnight);
+}
+.cardSlug {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--cream-dim);
+}
+
+.play {
+  min-height: 30px;
+  padding: 0 12px;
+  border: 1.5px solid var(--gold);
+  border-radius: 15px;
+  background: transparent;
+  color: var(--gold-bright);
+  font-family: var(--font-caption);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.play[aria-pressed="true"] {
+  background: var(--gold);
+  color: var(--midnight);
+}

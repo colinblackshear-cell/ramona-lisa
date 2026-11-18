@@ -250,9 +250,37 @@ export type Ritual =
   | "calling-card"
   | "last-joke";
 
+/**
+ * A shot that is planned but may not be drawn yet. See expandEpisode():
+ * it becomes its own panel, and until `art` exists the reader shows a stand-in
+ * (the panel it came from, reframed closer).
+ */
+export interface PlannedShot {
+  /** ChatGPT prompt number in the art-prompts files. */
+  prompt: number;
+  /** 1: in-betweens (28–59). 2: a picture for almost every line (91–164). */
+  layer: 1 | 2;
+  /** The existing panel this shot belongs to. */
+  panel: PanelId;
+  /**
+   * "after": a new shot after the panel. A number: the shot takes that line of the
+   * panel (and the lines after it, up to the next planned shot). { before: n }: the
+   * shot comes before the panel and takes line n.
+   */
+  at: "after" | number | { before: number };
+  title: string;
+  shot: string;
+  brief: string;
+  art?: ArtRef;
+}
+
 export interface Panel {
   id: PanelId;
   art: ArtRef;
+  /** Set on panels made from a planned shot. */
+  planned?: { prompt: number; layer: 1 | 2; title: string; shot: string };
+  /** Shown while a planned shot has no art: an existing picture, reframed. */
+  standIn?: { art: ArtRef; focus: string; zoom: number };
   /** Mystery Engine rituals this panel performs, so a checker can confirm every ritual appears. */
   rituals?: Ritual[];
   /** Art still to be drawn for this panel even though usable art exists (shown in Notes). */

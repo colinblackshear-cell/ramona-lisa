@@ -29,6 +29,9 @@ interface Props {
   onInteract: (it: Interaction) => void;
   onOpenClue: (clueId: string) => void;
   onOpenCasebook: () => void;
+  /** Movie view: the panel's place in the episode, and whether the camera is on it. */
+  flat?: number;
+  active?: boolean;
 }
 
 /** Beats before the first line of dialogue are lettered above the art; the rest below it. */
@@ -66,12 +69,14 @@ export function ComicPanel({
   onInteract,
   onOpenClue,
   onOpenCasebook,
+  flat,
+  active,
 }: Props) {
   const { art } = panel;
   const placeholder = art.status === "placeholder";
   const imageRatio = artRatio(panel);
   const frameRatio = fit === "guided" ? imageRatio : fit === "side" ? Math.max(imageRatio, 1 / 1.15) : tierRatio(panel, fit === "full");
-  const focus = panel.focus ?? "50% 50%";
+  const focus = panel.standIn?.focus ?? panel.focus ?? "50% 50%";
   const { above, below } = splitBeats(panel.beats);
 
   // Balloons sit under the speaker: from the speaker's place in the art when the
@@ -202,7 +207,21 @@ export function ComicPanel({
 
   const artBox = (
     <div className={styles.art} data-placeholder={placeholder ? "" : undefined}>
-      {placeholder ? (
+      {placeholder && panel.standIn ? (
+        // Planned shot without art yet: the picture it came from, reframed closer.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={asset(panel.standIn.art.src)}
+          alt={panel.standIn.art.alt}
+          draggable={false}
+          loading="lazy"
+          style={{
+            objectPosition: panel.standIn.focus,
+            transform: `scale(${panel.standIn.zoom})`,
+            transformOrigin: panel.standIn.focus,
+          }}
+        />
+      ) : placeholder ? (
         <div className={styles.placeholder} role="img" aria-label={art.alt}>
           {art.placeholderReference && (
             // eslint-disable-next-line @next/next/no-img-element
@@ -238,7 +257,7 @@ export function ComicPanel({
       })}
       {showNotes && (
         <span className={styles.note} data-status={art.status}>
-          Art: {art.status}
+          {panel.planned ? `Planned shot ${panel.planned.prompt}${panel.standIn ? " · stand-in" : ""}` : `Art: ${art.status}`}
           {panel.artNeeded ? ` · needs ${panel.artNeeded}` : ""}
           {panel.plant ? ` · plant: ${panel.plant}` : ""}
         </span>
@@ -250,6 +269,8 @@ export function ComicPanel({
     <figure
       className={styles.panel}
       data-fit={fit}
+      data-flat={flat}
+      data-active={active ? "" : undefined}
       data-tall={imageRatio < 1 ? "" : undefined}
       style={style}
       onClick={onSelect}

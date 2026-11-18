@@ -59,9 +59,10 @@ Every piece of content carries a `status`: `canon`, `approved`, `proposed` or `p
 The episode reads as a **comic book** (`src/components/comic/`).
 
 - **Cover:** the printed comic cover with **Open the comic** (or **Keep reading**).
-- **Pages:** `layout.ts` lays the script out as comic pages: a new page for every scene (with a scene title strip), small panels with little to say side by side, narrow panels with their lettering beside them, and a page ends when it is full (45 pages for the pilot). Wide tiers are framed on each panel's `focus` point.
+- **Pages:** `layout.ts` lays the script out as comic pages: a new page for every scene (with a scene title strip), small panels with little to say side by side, narrow panels with their lettering beside them, and a page ends when it is full (61 pages for the pilot, once planned shots are in). Wide tiers are framed on each panel's `focus` point.
 - **Lettering around the art:** captions sit above a panel and tuck over its top edge; speech balloons sit below and tuck over its bottom edge, their tails reaching in toward the speaker (from `anchors` where the script records them, otherwise alternating sides with a small speaker name). Words never sit over the middle of a picture. Hand-lettered balloons (Patrick Hand SC; whisper, thought and shout styles), storybook captions (IM Fell English SC), Bangers sound effects breaking out over frames.
-- **Panel by panel** (default on phones): one panel at a time, the whole picture uncropped. Tap to read on (a long panel scrolls first), tap the left edge to go back, double tap or the page button for the whole page. Held sideways, the art fills the screen with the words beside it.
+- **Movie** (the default): the camera glides and zooms from shot to shot across the comic page, dimming the rest, the way a motion comic moves. A panel taller than the screen is read in stops, tilting down it. Scene title cards play between scenes, and **Play** (or P) runs the episode by itself, holding each shot long enough to read. Tap to go on, tap the left edge to go back, double tap or the page button for the whole page.
+- **Planned shots:** `content/episodes/<id>/shots.ts` lists in-between shots still to be drawn (layer 1: prompts 28–59; layer 2: 91–164, so almost every line gets its own picture). `lib/expand.ts` splits panels at those lines; until the art arrives each planned shot uses a stand-in, the picture it came from reframed closer on the speaker. Drop the new art into the shot's `art` and the stand-in goes away.
 - **Whole pages** (default on laptops): swipe or ← → to turn the page; tap a panel to read it up close. On big screens two pages sit side by side as a spread.
 - Clues: a gold magnifier on the art and a "look closer" button; the evidence opens magnified and is filed in Kit's casebook. Clues heard in the story are stamped "Added to Kit's casebook".
 - Suspect cards dealt on the page and filed in Kit's casebook (a lined notebook), with leads that unlock as clues turn up
@@ -69,6 +70,6 @@ The episode reads as a **comic book** (`src/components/comic/`).
 - The full episode, 13 scenes, ending on a "Case closed!" page
 - Treasure explorer for the stolen cameo: real history vs. invented-for-the-story facts, with a simple diagram
 - Contents (tap the page number): jump to any scene, and switch on **production notes** (art and script status, art still to come)
-- Keys: ← → and Space turn, Z switches page / panel, C opens the casebook. Your place is saved on this device.
+- Keys: ← → and Space turn, Z switches page / movie, P plays, C opens the casebook. Your place is saved on this device.
 - The earlier film reader (`src/components/reader/Reader.tsx`, `CinemaStage.tsx`) is still in the code but no longer used.
 - Accessibility: every image has a text alternative, new lettering is announced via a polite live region, speaker and delivery are spoken, native dialogs trap focus and close on Escape, 44px touch targets

@@ -37,7 +37,8 @@ export interface ComicLayout {
 
 /** Width-to-height ratio of a panel's art (placeholders are drawn 3:2). */
 export function artRatio(panel: Panel): number {
-  return panel.art.status === "placeholder" ? 3 / 2 : panel.art.width / panel.art.height;
+  if (panel.art.status !== "placeholder") return panel.art.width / panel.art.height;
+  return panel.standIn ? panel.standIn.art.width / panel.standIn.art.height : 3 / 2;
 }
 
 function beatText(b: Beat): string {
