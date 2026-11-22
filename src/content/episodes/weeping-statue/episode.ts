@@ -467,12 +467,11 @@ const art = {
     status: "canon",
   },
   planDock: {
-    src: "",
-    alt: "Planned shot. Lucien lounges on the crate marked T at the loading dock, checking a pocket watch.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 76). Lucien lounges on the crate marked T at the loading dock, checking a pocket watch.",
+    src: `${A}ending-lucien-watch.webp`,
+    alt: "At the foggy loading dock Lucien checks his pocket watch beside crate T, an open van waiting behind it.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planWind: {
     src: "",
@@ -1577,6 +1576,7 @@ export const weepingStatue: Episode = {
         {
           id: "trap-dock",
           art: art.planDock,
+          anchors: { lucien: { x: 25, y: 30 } },
           camera: "push-in",
           transition: "fade",
           beats: [
