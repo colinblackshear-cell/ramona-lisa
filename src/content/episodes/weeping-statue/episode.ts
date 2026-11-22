@@ -380,12 +380,11 @@ const art = {
     status: "canon",
   },
   planCrash: {
-    src: "",
-    alt: "Planned shot. The cats tumble off the polisher through a narrow cupboard door as it spins away.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 64). The cats tumble off the polisher through a narrow cupboard door as it spins away.",
+    src: `${A}ending-cupboard-tumble.webp`,
+    alt: "Kit and Ramona tumble in a heap through a broom-cupboard door among the mops, while the floor polisher spins away down the gallery.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planCupboard: {
     src: "",
