@@ -546,12 +546,11 @@ const art = {
     status: "canon",
   },
   planCuratorsBaffled: {
-    src: "",
-    alt: "Planned shot. Curators' shoes and coffee cups crowd round the case: the cameo is back on its velvet.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 87). Curators' shoes and coffee cups crowd round the case: the cameo is back on its velvet.",
+    src: `${A}ending-curators-baffled.webp`,
+    alt: "Daylight in the Roman gallery: the cameo is back on its cushion under the glass, ringed by curators' legs and shoes, a dropped clipboard and a spilled coffee.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planHair: {
     src: "",
@@ -562,12 +561,11 @@ const art = {
     brief: "PLANNED SHOT (new art, prompt 88). On the velvet beside the cameo lies one black-and-white hair.",
   },
   planBarnabyPatrol: {
-    src: "",
-    alt: "Planned shot. Barnaby patrols the Egyptian gallery, tipping his cap to mice waving from their nest.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 89). Barnaby patrols the Egyptian gallery, tipping his cap to mice waving from their nest.",
+    src: `${A}ending-barnaby-patrol.webp`,
+    alt: "Barnaby, lantern in paw, cheerfully tips his cap to the mice waving from their dust-sheet nest beside a sarcophagus.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planRooftopEnd: {
     src: "",
@@ -1759,6 +1757,7 @@ export const weepingStatue: Episode = {
         {
           id: "home-barnaby",
           art: art.planBarnabyPatrol,
+          anchors: { barnaby: { x: 22, y: 30 }, mice: { x: 80, y: 65 } },
           camera: "pan-right",
           transition: "fade",
           beats: [
