@@ -387,12 +387,11 @@ const art = {
     status: "canon",
   },
   planCupboard: {
-    src: "",
-    alt: "Planned shot. Inside a pitch-dark broom cupboard, Barnaby huddles among the mops, eyes wide.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 65). Inside a pitch-dark broom cupboard, Barnaby huddles among the mops, eyes wide.",
+    src: `${A}ending-barnaby-cupboard.webp`,
+    alt: "In the dark broom cupboard among the mops, Barnaby the badger guard huddles with his knees up, eyes wide, as Ramona and Kit stare at him.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planTurn: {
     src: "",
@@ -1405,6 +1404,7 @@ export const weepingStatue: Episode = {
         {
           id: "escape-cupboard",
           art: art.planCupboard,
+          anchors: { kit: { x: 40, y: 45 }, barnaby: { x: 68, y: 30 } },
           camera: "push-in",
           transition: "fade",
           beats: [
