@@ -11,7 +11,18 @@ p = "src/content/episodes/weeping-statue/episode.ts"
 s = open(p).read()
 m = re.search(r"  (\w+): \{\n    src: \"\",\n(?:(?!  \},).)*?prompt " + n + r"\)(?:(?!  \},).)*?\n  \},", s, re.S)
 if not m:
-    sys.exit(f"no placeholder for prompt {n} in episode.ts")
+    # A filler shot (layers 1 and 2) lives in shots.ts: give it its art there.
+    q = "src/content/episodes/weeping-statue/shots.ts"
+    t = open(q).read()
+    line = re.search(r"^  \{ prompt: " + n + r", .*\},?$", t, re.M)
+    if not line:
+        sys.exit(f"no planned shot for prompt {n}")
+    a = alt.replace('"', '\\"')
+    art = f'art: {{ src: "episodes/weeping-statue/art/{name}.webp", alt: "{a}", width: {im.width}, height: {im.height}, status: "canon" }} }}'
+    new = re.sub(r" \}(,?)$", lambda mm: ", " + art + mm.group(1), line.group(0))
+    open(q, "w").write(t[: line.start()] + new + t[line.end():])
+    print(f"prompt {n} -> shots.ts art = {name}.webp")
+    sys.exit(0)
 alt = alt.replace('"', '\\"')
 s = s[: m.start()] + f'  {m.group(1)}: {{\n    src: `${{A}}{name}.webp`,\n    alt: "{alt}",\n    width: {im.width},\n    height: {im.height},\n    status: "canon",\n  }},' + s[m.end():]
 open(p, "w").write(s)
