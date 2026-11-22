@@ -401,12 +401,11 @@ const art = {
     status: "canon",
   },
   planPounce: {
-    src: "",
-    alt: "Planned shot. Kit pounces on a drifting ghost sheet and it collapses under her.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 67). Kit pounces on a drifting ghost sheet and it collapses under her.",
+    src: `${A}ending-kit-pounces.webp`,
+    alt: "In the Egyptian gallery Kit pounces on a drifting ghost sheet and pins it flat, while Barnaby peeks through his paws by a pillar.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planMice: {
     src: "",
@@ -1450,6 +1449,7 @@ export const weepingStatue: Episode = {
         {
           id: "ghosts-pounce",
           art: art.planPounce,
+          anchors: { kit: { x: 58, y: 40 } },
           camera: "still",
           transition: "cut",
           beats: [
