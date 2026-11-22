@@ -429,12 +429,11 @@ const art = {
     status: "canon",
   },
   planInformants: {
-    src: "",
-    alt: "Planned shot. The mice gather round the cats and Barnaby, telling them what they've seen.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 71). The mice gather round the cats and Barnaby, telling them what they've seen.",
+    src: `${A}ending-mice-informants.webp`,
+    alt: "A mouse in spectacles stands on a little box telling Ramona, Barnaby and Kit what the mice have seen, the other mice crowding round.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planKitThinks: {
     src: "",
@@ -1495,6 +1494,7 @@ export const weepingStatue: Episode = {
         {
           id: "ghosts-informants",
           art: art.planInformants,
+          anchors: { mice: { x: 50, y: 55 }, kit: { x: 82, y: 40 } },
           camera: "push-in",
           transition: "fade",
           beats: [
