@@ -474,20 +474,18 @@ const art = {
     status: "canon",
   },
   planWind: {
-    src: "",
-    alt: "Planned shot. Inside the bust's hatch, Ramona turns the clockwork forward with both paws.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 77). Inside the bust's hatch, Ramona turns the clockwork forward with both paws.",
+    src: `${A}ending-ramona-winds.webp`,
+    alt: "Ramona reaches into the open hatch behind the empress's ear and turns the brass clockwork forward, while Kit and Barnaby watch.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planBarnabyShouts: {
-    src: "",
-    alt: "Planned shot. Barnaby flings open the service corridor doors and switches on the lights, shouting.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 78). Barnaby flings open the service corridor doors and switches on the lights, shouting.",
+    src: `${A}ending-barnaby-lights.webp`,
+    alt: "Barnaby flings his arm toward the service corridor, shouting, as the lights blaze on down its length past crate T; Ramona and Kit watch from behind him.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planBolt: {
     src: "",
@@ -1587,6 +1585,7 @@ export const weepingStatue: Episode = {
         {
           id: "trap-wind",
           art: art.planWind,
+          anchors: { ramona: { x: 40, y: 35 } },
           camera: "push-in",
           transition: "cut",
           beats: [
@@ -1608,6 +1607,7 @@ export const weepingStatue: Episode = {
         {
           id: "trap-barnaby",
           art: art.planBarnabyShouts,
+          anchors: { barnaby: { x: 40, y: 30 } },
           rituals: ["turn"],
           camera: "still",
           transition: "cut",
