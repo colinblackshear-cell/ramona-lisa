@@ -503,20 +503,18 @@ const art = {
     status: "canon",
   },
   planTrip: {
-    src: "",
-    alt: "Planned shot. The strap wraps Lucien's legs; he crashes down and the cameo flies through the air.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 81). The strap wraps Lucien's legs; he crashes down and the cameo flies through the air.",
+    src: `${A}ending-lucien-trips.webp`,
+    alt: "Kit's strap snags Lucien's ankle; he topples backwards and the cameo flies glowing into the air.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planCatch: {
-    src: "",
-    alt: "Planned shot. Ramona catches the cameo in mid-air.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 82). Ramona catches the cameo in mid-air.",
+    src: `${A}ending-ramona-catches.webp`,
+    alt: "Ramona leaps over the fallen Lucien and catches the glowing cameo in mid-air, as Kit holds the strap and Barnaby gapes.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planTrussed: {
     src: "",
@@ -1661,6 +1659,7 @@ export const weepingStatue: Episode = {
         {
           id: "trap-catch",
           art: art.planCatch,
+          anchors: { ramona: { x: 45, y: 25 }, kit: { x: 82, y: 60 } },
           camera: "push-in",
           transition: "cut",
           beats: [
