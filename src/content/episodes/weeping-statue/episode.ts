@@ -408,12 +408,11 @@ const art = {
     status: "canon",
   },
   planMice: {
-    src: "",
-    alt: "Planned shot. Under the sheet, a tangle of startled museum mice.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 68). Under the sheet, a tangle of startled museum mice.",
+    src: `${A}ending-mice-revealed.webp`,
+    alt: "Kit lifts the ghost sheet to reveal a huddle of startled museum mice, one in spectacles, while Ramona looks on unimpressed.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planNest: {
     src: "",
@@ -1460,6 +1459,7 @@ export const weepingStatue: Episode = {
         {
           id: "ghosts-mice",
           art: art.planMice,
+          anchors: { ramona: { x: 20, y: 35 }, mice: { x: 50, y: 70 }, kit: { x: 75, y: 30 } },
           camera: "push-in",
           transition: "cut",
           beats: [
