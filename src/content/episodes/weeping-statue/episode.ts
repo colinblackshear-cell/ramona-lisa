@@ -394,12 +394,11 @@ const art = {
     status: "canon",
   },
   planTurn: {
-    src: "",
-    alt: "Planned shot. Barnaby, embarrassed, confesses to the cats in the cupboard.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 66). Barnaby, embarrassed, confesses to the cats in the cupboard.",
+    src: `${A}ending-barnaby-confesses.webp`,
+    alt: "Barnaby, sheepish, twists his cap in his paws as he owns up to Ramona and Kit in the broom cupboard.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planPounce: {
     src: "",
@@ -1415,6 +1414,7 @@ export const weepingStatue: Episode = {
         {
           id: "escape-turn",
           art: art.planTurn,
+          anchors: { ramona: { x: 18, y: 40 }, barnaby: { x: 50, y: 30 }, kit: { x: 82, y: 40 } },
           rituals: ["turn"],
           camera: "still",
           transition: "cut",
