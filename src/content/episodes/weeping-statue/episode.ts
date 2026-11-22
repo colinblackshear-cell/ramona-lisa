@@ -460,12 +460,11 @@ const art = {
     brief: "PLANNED SHOT (new art, prompt 74). Behind the empress's ear a hidden hatch is open: a jar of dark ink and a brass clockwork valve inside the hollow head.",
   },
   planPlan: {
-    src: "",
-    alt: "Planned shot. Ramona, Kit and Barnaby huddle at the bust, plotting.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 75). Ramona, Kit and Barnaby huddle at the bust, plotting.",
+    src: `${A}ending-plotting.webp`,
+    alt: "Ramona, Barnaby and Kit huddle over a museum floor plan with the mice; Ramona traces a route from the empress to crate T and the loading dock.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planDock: {
     src: "",
@@ -1553,6 +1552,7 @@ export const weepingStatue: Episode = {
         {
           id: "break-plan",
           art: art.planPlan,
+          anchors: { ramona: { x: 25, y: 35 }, barnaby: { x: 50, y: 25 }, kit: { x: 82, y: 30 } },
           camera: "push-in",
           transition: "cut",
           beats: [
