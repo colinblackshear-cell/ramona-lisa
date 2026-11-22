@@ -568,12 +568,11 @@ const art = {
     status: "canon",
   },
   planRooftopEnd: {
-    src: "",
-    alt: "Planned shot. Ramona and Kit share fish and chips on a moonlit rooftop.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 90). Ramona and Kit share fish and chips on a moonlit rooftop.",
+    src: `${A}ending-rooftop-chips.webp`,
+    alt: "On a moonlit London rooftop, Ramona and Kit share a paper parcel of fish and chips, Kit blissfully chewing, Big Ben and the museum dome behind.",
+    width: 1672,
+    height: 941,
+    status: "canon",
   },
 } satisfies Record<string, ArtRef>;
 
@@ -1769,6 +1768,7 @@ export const weepingStatue: Episode = {
         {
           id: "home-rooftop",
           art: art.planRooftopEnd,
+          anchors: { ramona: { x: 25, y: 30 }, kit: { x: 52, y: 28 } },
           rituals: ["last-joke"],
           camera: "pull-out",
           transition: "iris",
