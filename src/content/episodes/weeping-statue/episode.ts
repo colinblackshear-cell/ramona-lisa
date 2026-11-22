@@ -496,12 +496,11 @@ const art = {
     brief: "PLANNED SHOT (new art, prompt 79). Lucien bolts down the corridor with the cameo clutched to his chest.",
   },
   planPastry: {
-    src: "",
-    alt: "Planned shot. Kit, one paw on the café's pastry cart, flings her packing strap.",
-    width: 3,
-    height: 2,
-    status: "placeholder",
-    brief: "PLANNED SHOT (new art, prompt 80). Kit, one paw on the café's pastry cart, flings her packing strap.",
+    src: `${A}ending-kit-strap.webp`,
+    alt: "Crouched by the café's pastry cart, Kit sends her packing strap snaking across the floor toward Lucien as he sneaks off past crate T; Ramona and Barnaby watch.",
+    width: 1536,
+    height: 1024,
+    status: "canon",
   },
   planTrip: {
     src: "",
@@ -1640,6 +1639,7 @@ export const weepingStatue: Episode = {
         {
           id: "trap-pastry",
           art: art.planPastry,
+          anchors: { kit: { x: 75, y: 55 } },
           rituals: ["trap-half-fails", "running-bicker"],
           camera: "still",
           transition: "cut",
